@@ -1,0 +1,757 @@
+---
+format:
+   revealjs:
+     css: style.css
+     incremental: true
+     slide-number: true
+     footer: "&copy; 2025 Eli Lilly and Company"
+     view-distance: 100
+     mobile-view-distance: 100
+---
+
+##
+
+```{r, include = FALSE, echo = FALSE}
+set.seed(0)
+suppressPackageStartupMessages({
+  library(targets)
+})
+knitr::opts_chunk$set(
+  cache = FALSE,
+  comment = "#>",
+  echo = TRUE,
+  eval = FALSE,
+  fig.width = 10, 
+  fig.height = 5
+)
+```
+
+<style>
+.reveal .tiny {
+  display: inline-block;
+  font-size: 0.5em;
+  line-height: 1.0em;
+  vertical-align: top;
+}
+.reveal .medium {
+  display: inline-block;
+  font-size: 0.75em;
+  line-height: 1.5em;
+  vertical-align: top;
+}
+</style>
+
+<center>
+<br>
+<h3>Accelerating clinical trial simulation in R</h3>
+<img src="./images/targets.png" height="400px">
+<br>
+<h4>Will Landau</h4>
+</center>
+
+## Background
+
+* Training:
+    * Iowa State University 2011-2016.
+    * Bayesian Statistics.
+* Career
+    * Eli Lilly and Company, 2016-present.
+    * Methods and tools for clinical trials.
+    * Author of the `targets` package.
+
+## Agenda
+
+<br>
+
+<center>
+<img src="./images/agenda.png">
+</center>
+
+# Clinical trial simulation
+
+## Drug development
+
+<center>
+<img src="./images/process.png">
+</center>
+
+
+## Clinical trials
+
+<center>
+<img src="./images/clinical.png">
+</center>
+
+## Responsibilities
+
+<center>
+<img src="./images/responsibility.png">
+</center>
+
+## Clinical trial simulation: goals
+
+<center>
+<img src="./images/goals.jpg" height="300px">
+</center>
+
+* Quantify decision-making ability.
+* Compare alternative designs.
+
+## Clinical trial simulation: steps
+
+<center>
+<img src="./images/steps.jpg" height="300px">
+</center>
+
+1. Simulate virtual patients.
+1. Analyze with models.
+1. Repeat thousands of times.
+
+## Clinical trial simulation: challenges
+
+<center>
+<img src="./images/challenges.jpg" height="300px">
+</center>
+
+* Complicated R code.
+* Long execution times.
+* Frequent changes.
+
+# Example trial
+
+## Hypothetical trial
+
+<center>
+<img src="./images/stethoscope.jpg" height="300px">
+</center>
+
+* Extremely rare autoimmune liver disease.
+* Phase 2 study, first look at efficacy.
+* Novel therapy vs active control.
+* Randomize up to 100 patients (1:1).
+
+## Bayesian joint model {.nonincremental}
+
+:::{.fragment}
+
+#### Survival endpoint: years without hospitalization
+
+$$
+\begin{aligned}
+E(y_i(t)) &= \eta_i(t) \\
+&= x_i(t) \beta + b_i
+\end{aligned}
+$$
+:::
+
+:::{.fragment}
+
+#### Longitudinal endpoint: log bilirubin
+
+$$
+\begin{aligned}
+h_i(t) = h_0(t, \lambda) \exp \left (\eta_i(t) \alpha + \gamma + d_i \color{blue}{\boldsymbol{\theta}} \right )
+\end{aligned}
+$$
+
+:::
+
+* $d_i$: 1 for treatment, 0 for control.
+* $\color{blue}{\boldsymbol{\theta}}$: log hazard ratio of treatment vs control.
+
+## Decision rules {.nonincremental}
+
+
+$$
+\begin{aligned}
+h(y) = \text{P}(\exp(\color{blue}{\boldsymbol{\theta}}) < 0.75 \ | \ y)
+\end{aligned}
+$$
+
+:::{.fragment}
+
+#### Declare efficacy if:
+
+$$
+\begin{aligned}
+h(y) > 0.8
+\end{aligned}
+$$
+:::
+
+:::{.fragment}
+
+#### Declare futility if:
+
+$$
+\begin{aligned}
+h(y) < 0.4
+\end{aligned}
+$$
+
+:::
+
+## Clinical trial design
+
+<center>
+<img src="./images/stethoscope.jpg" height="300px">
+</center>
+
+* 10-year accrual period.
+* Futility interim at $n$ hospitalizations.
+* **Goal: simulate to propose a suitable $n$**.
+
+## Simulate futility
+
+![](./images/bayes.png)
+
+* Simulate 1000 futile trials for $n = 40, 50, 60, 70$.
+* A fixed hazard ratio of 1 would be unrealistic.
+* Instead, draw from a distribution that captures futility.
+* Use the posterior distribution from a historical trial.
+
+## Historical futility data
+
+<center>
+<img src="./images/data.jpg" height="300px">
+</center>
+
+* Datasets `pbc` and `pbcseq` from the `survival` package.
+* Indication: primary biliary cholangitis (PBC).
+* Mayo Clinic trial of D-penicillamine vs placebo.
+* D-penicillamine did not improve survival.
+
+## Estimated hazard ratio
+
+<center>
+<img src="./images/hazard_ratio.png">
+</center>
+
+# R code
+
+## Functions {.nonincremental}
+
+$$
+\Huge
+{\color{blue}{y}} = {\color{purple}{f}}({\color{teal}{x}})
+$$
+<br>
+
+> Everything that exists in an object. <br>
+> Everything that happens is a function call.
+>
+> <br>
+> — John Chambers
+
+## Top-level R functions
+
+$$
+\Huge
+{\color{blue}{y}} = {\color{purple}{f}}({\color{teal}{x}})
+$$
+
+<br>
+
+Function | Description
+---|---
+`draw_hazard_ratios()` | From historical model.
+`trial()` | Simulate one trial rep.
+`plot_results()` | Visualize results.
+
+## Example simulation replication
+
+<center>
+<img src="./images/r.png" height="200px">
+</center>
+<br>
+
+```{r}
+trial(hazard_ratio = 1.2, events = 50)
+#> # A tibble: 1 × 4
+#>   events efficacy enrolled years
+#>    <dbl>    <dbl>    <dbl> <dbl>
+#> 1     50   0.0324       72  7.35
+```
+
+## Example simulation replication
+
+<center>
+<img src="./images/r.png" height="200px">
+</center>
+<br>
+
+```{r}
+trial(hazard_ratio = 0.5, events = 50)
+#> # A tibble: 1 × 4
+#>   events efficacy enrolled years
+#>    <dbl>    <dbl>    <dbl> <dbl>
+#> 1     50    0.998       83  8.52
+```
+
+# Workflow pitfalls
+
+## Scripted simulation 
+
+:::{.nonincremental}
+
+* Step 1: draw historical hazard ratios.
+
+```{r}
+hazard_ratio <- draw_hazard_ratios(10000)
+```
+
+:::{.fragment}
+
+* Step 2: run simulations.
+
+```{r}
+results <- hazard_ratio |>
+  expand_grid(events = c(40, 50, 60, 70)) |>
+  pmap(trial) |>
+  list_rbind()
+```
+
+:::
+
+:::{.fragment}
+
+
+* Step 3: plot results.
+
+```{r}
+plot_results(results)
+```
+
+:::
+
+:::
+
+## Numbered notebooks?
+
+<center>
+<img src="./images/notebook-start.png">
+</center>
+
+## What about data?
+
+<center>
+<img src="./images/notebook-data.png">
+</center>
+
+## Complexity?
+
+<center>
+<img src="./images/notebook-change.png">
+</center>
+
+## Keeping results up to date?
+
+<center>
+<img src="./images/notebook-rerun.png">
+</center>
+
+# Pipelines
+
+## What is a pipeline?
+
+<center>
+<img src="./images/graph-final.png" height = "300px">
+</center>
+
+* Pipeline: a formal group of tasks.
+* Each task declares a command, dependencies, and output.
+* A task cannot eventually depend on itself.
+
+## Pipeline tools
+
+<br>
+
+<center>
+<img src="./images/infographic.png" height = "300px">
+</center>
+
+* Examples: Make, Airflow, Nextflow, Prefect, and `targets`.
+
+## targets: a pipeline tool for R
+
+<center>
+<img src="./images/logo-tweet.png" height="300px">
+</center>
+
+* Retains the comfort of your local R session.
+* Declares dependencies implicitly.
+* Integrates with Quarto.
+* Runs distributed computing.
+
+# Example pipeline
+
+## Project-oriented workflow
+
+<br>
+
+```{r}
+fs::dir_tree()
+#> _targets.R
+#> R
+#> ├── draw_hazard_ratios.R
+#> ├── plot_results.R
+#> ├── trial.R
+#> └── utils.R
+```
+
+* `R/` scripts contain functions.
+* `_targets.R` defines the pipeline.
+
+## Define the pipeline in `_targets.R`
+
+```{r}
+library(targets)
+
+tar_option_set(...)
+
+tar_source()
+
+list(
+  tar_target(hazard_ratios, ...),
+  tar_target(trials, ...),
+  ...
+)
+```
+
+## Options
+
+```{r}
+library(crew.cluster)
+
+controller <- crew_controller_sge(
+  workers = 500,
+  seconds_idle = 120
+)
+
+tar_option_set(
+  packages = c("rstanarm", ...),
+  controller = controller
+)
+```
+
+## Inputs
+
+```{r}
+tar_target(
+  name = hazard_ratios,
+  command = draw_hazard_ratios(10000)
+)
+```
+
+<br>
+
+```{r}
+tar_target(
+  name = events,
+  command = c(40, 50, 60, 70)
+)
+```
+
+## Simulations
+
+<br>
+
+```{r}
+tar_target(
+  name = trials,
+  command = trial(hazard_ratios, events),
+  pattern = cross(hazard_ratios, events)
+)
+```
+
+## Results
+
+```{r}
+tar_target(
+  name = plot,
+  command = plot_results(trials)
+)
+```
+
+<br>
+
+```{r}
+tarchetypes::tar_quarto(
+  name = quarto,
+  path = "results.qmd"
+)
+```
+
+## Quarto report
+
+<center>
+<img src="./images/quarto-source.png" height="550px">
+</center>
+
+## Connections among targets
+
+```{r}
+tar_visnetwork(targets_only = TRUE)
+```
+
+<br>
+
+<center>
+<img src="./images/graph-outdated.png">
+</center>
+
+## Connections to functions
+
+```{r}
+tar_visnetwork()
+```
+
+<center>
+<img src="./images/graph-functions.png">
+</center>
+
+# Running the pipeline
+
+## Run the pipeline
+
+```{r}
+tar_make(as_job = TRUE)
+```
+
+<center>
+<img src="./images/workbench.png">
+</center>
+
+## Track progress
+
+<br>
+
+```{r}
+tar_progress_summary()[, 1:3]
+#> # A tibble: 1 × 3
+#>   skipped dispatched completed
+#>     <int>      <int>     <int>
+#> 1       0        500     12613
+```
+
+## Track progress
+
+<br>
+
+```{r}
+tar_visnetwork(targets_only = TRUE)
+```
+
+<center>
+<img src="./images/graph-dispatched.png">
+</center>
+
+## Simulation results
+
+```{r}
+tar_read(trials, branches = seq_len(8))
+#> # A tibble: 10 × 4
+#>    events efficacy enrolled years
+#>     <dbl>    <dbl>    <dbl> <dbl>
+#>  1     40   0.055        58  6.31
+#>  2     50   0.0685       77  7.99
+#>  3     60   0.0602       81  7.93
+#>  4     70   0.153        93  9.01
+#>  5     40   0.220        65  6.03
+#>  6     50   0.479        73  6.43
+#>  7     60   0.918        87  8.91
+#>  8     70   0.832        89  8.99
+```
+
+## Plot
+
+```{r}
+tar_read(plot)
+```
+
+<center>
+<img src="./images/plot.png">
+</center>
+
+## Quarto report
+
+<center>
+<img src="./images/quarto.png" height="550px">
+</center>
+
+## Add a new target
+
+```{r}
+tar_target(
+  name = years,
+  command = plot_years(trials)
+)
+```
+
+<center>
+<img src="./images/graph-years.png">
+</center>
+
+## Skip up-to-date targets
+
+<br>
+
+```{r}
+tar_make()
+#> ✔ skipping targets (1 so far)...
+#> ✔ skipping targets (160 so far)...
+#> ...
+#> ✔ skipping targets (40002 so far)...
+#> ▶ dispatched target years
+```
+
+## Years until interim
+
+```{r}
+tar_read(years)
+```
+
+<center>
+<img src="./images/years.png">
+</center>
+
+## Change an event threshold
+
+```{r}
+tar_target(
+  name = events,
+  command = c(40, 50, 60, 75)
+)
+```
+
+<center>
+<img src="./images/graph-change-event-threshold.png">
+</center>
+
+## Change an upstream function
+
+<center>
+<img src="./images/graph-change-function.png">
+</center>
+
+
+## Up-to-date pipeline
+
+```{r}
+tar_outdated()
+#> character(0)
+```
+
+<br>
+
+```{r}
+tar_visnetwork(targets_only = TRUE)
+```
+
+<center>
+<img src="./images/graph-uptodate.png">
+</center>
+
+# Recap
+
+## Conclusions
+
+<center>
+<img src="./images/plot-large-font.png" height = "400px">
+</center>
+
+* Interim at 40 events looks promising.
+* Need to simulate full design with interims and final analysis.
+
+## Benefits of pipeline tools
+
+<br>
+
+::::{.columns}
+
+:::{.column width="50%"}
+
+<center>
+<img src="./images/targets.png" height = "400px">
+</center>
+
+:::
+
+:::{.column width="50%"}
+
+<center>
+<div style="font-size: 2em">
+* Time savings
+* Reproducibility
+* Peace of mind
+</div>
+</center>
+
+:::
+
+::::
+
+## {.nonincremental}
+
+::::{.columns}
+
+:::{.column width="33%"}
+
+<center>
+<span style= "font-size: 1.5em; font-weight: bold;">targets</span>
+<a href="https://docs.ropensci.org/targets/"><img src="./images/qr-docs.png"></a>
+</center>
+
+:::
+
+:::{.column width="33%"}
+
+<center>
+<span style= "font-size: 1.5em; font-weight: bold;">slides</span>
+<a href="https://wlandau.github.io/useR2025"><img src="./images/qr-slides.png"></a>
+</center>
+
+:::
+
+:::{.column width="33%"}
+
+<center>
+<span style= "font-size: 1.5em; font-weight: bold;">pipeline</span>
+<a href="https://github.com/wlandau/targets-example-liver"><img src="./images/qr-pipeline.png"></a>
+</center>
+
+:::
+
+::::
+
+<br>
+
+Special thanks to rOpenSci!
+
+## Sources {.tiny}
+
+:::{.nonincremental}
+
+* Brilleman, S. L., M. J. Crowther, M. Moreno-Betancur, J. Buros Novik, and R. Wolfe. 2018. "Joint Longitudinal and Time-to-Event Models via Stan." In StanCon 2018. https://github.com/stan-dev/stancon_talks/.
+* Dickson, E. R., T. R. Fleming, R. H. Wiesner, W. P. Baldus, C. R. Fleming, J. Ludwig, and J. T. McCall. 1985. "Trial of Penicillamine in Advanced Primary Biliary Cirrhosis." New England Journal of Medicine 312 (16): 1011–15. https://doi.org/10.1056/NEJM198504183121602.
+* Goodrich, B., J. Gabry, I. Ali, and S. L. Brilleman. 2024. "rstanarm: Bayesian applied regression modeling via Stan." https://mc-stan.org/rstanarm.
+* Landau, W. M. 2021. "The targets R package: a dynamic Make-like function-oriented pipeline toolkit for reproducibility and high-performance computing." Journal of Open Source Software 6 (57): 2959. https://doi.org/10.21105/joss.02959.
+* Lawrence, G. A., M. E. Boye, M. J. Crowther, J. G. Ibrahim, G. Quartey, S. Micallef, and F. Y. Bois. 2016. "Joint modeling of survival and longitudinal non-survival data: current methods and issues. Report of the DIA Bayesian joint modeling working group." Statistics in Medicine 34 (14): 2181–95. https://doi.org/10.1002/sim.6141.
+* Therneau, T. M., and P. M. Grambsch. 2000. Modeling Survival Data: Extending the Cox Model. New York: Springer.
+:::
+
+
+## Image credit {.tiny}
+
+:::{.nonincremental}
+
+* <https://unsplash.com/photos/brown-and-gray-stones-on-white-surface-hUjSO5dZA_E>
+* <https://unsplash.com/photos/person-stepping-on-blue-stairs-7_kRuX1hSXM>
+* <https://unsplash.com/photos/red-white-and-black-round-wheel-RjqCk9MqhNg>
+* <https://unsplash.com/photos/matrix-movie-still-iar-afB0QQw>
+* <https://unsplash.com/photos/black-and-gray-stethoscope-yo01Z-9HQAw>
+* <https://unsplash.com/photos/white-printing-paper-with-numbers-Wpnoqo2plFA>
+* <https://unsplash.com/photos/woman-in-brown-sweater-covering-her-face-with-her-hand-_sh9vkVbVgo>
+* <https://unsplash.com/license>
+
+:::

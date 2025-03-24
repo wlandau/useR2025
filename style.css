@@ -1,0 +1,7 @@
+pre > code.sourceCode {
+  font-size: 1.5em !important;
+}
+
+.reveal code {
+  max-height: 100% !important;
+}

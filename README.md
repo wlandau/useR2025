@@ -1,0 +1,5 @@
+# Accelerating clinical trial simulation in R with `targets`
+
+In clinical trial design, simulations are essential for evaluating potential designs and optimizing features like sample size, allocation, randomization, milestones, and decision criteria. However, simulations require thousands of repeated experiments and long execution times. Furthermore, commercial off-the-shelf software does not always support the specialized models or operational requirements of complex innovative designs.
+
+The open-source `targets` R package helps statisticians conduct powerful simulation studies tailored to the specific needs of the trial under development. A general-purpose pipeline tool for Statistics and data science in R, `targets` leverages custom user-defined functions, orchestrates heavy-duty distributed computing workloads, and skips costly runtime for tasks that are already up to date. The `targets` package accelerates the design of innovative trials and enhances the computational reproducibility of simulations.
