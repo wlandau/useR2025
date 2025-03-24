@@ -43,7 +43,7 @@ knitr::opts_chunk$set(
 
 <center>
 <br>
-<h3>Accelerating clinical trial simulation in R</h3>
+<h3>Powerful simulation pipelines with {targets}</h3>
 <img src="./images/targets.png" height="400px">
 <br>
 <h4>Will Landau</h4>
