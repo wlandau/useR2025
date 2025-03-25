@@ -51,7 +51,7 @@ knitr::opts_chunk$set(
 
 ## Background
 
-* Training:
+* Training
     * Iowa State University 2011-2016.
     * Bayesian Statistics.
 * Career
@@ -134,7 +134,7 @@ knitr::opts_chunk$set(
 
 :::{.fragment}
 
-#### Survival endpoint: years without hospitalization
+#### Survival endpoint: years without liver transplant or death
 
 $$
 \begin{aligned}
@@ -198,7 +198,7 @@ $$
 </center>
 
 * 10-year accrual period.
-* Futility interim at $n$ hospitalizations.
+* Futility interim at $n$ events (liver transplant or death).
 * **Goal: simulate to propose a suitable $n$**.
 
 ## Simulate futility
