@@ -402,7 +402,7 @@ fs::dir_tree()
 * `R/` scripts contain functions.
 * `_targets.R` defines the pipeline.
 
-## Define the pipeline in `_targets.R`
+## Define the pipeline in _targets.R
 
 ```{r}
 library(targets)
