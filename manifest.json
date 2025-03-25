@@ -1,0 +1,370 @@
+{
+  "version": 1,
+  "locale": "en_US",
+  "platform": "4.4.0",
+  "metadata": {
+    "appmode": "static",
+    "primary_rmd": null,
+    "primary_html": "index.html",
+    "content_category": "site",
+    "has_parameters": false
+  },
+  "packages": null,
+  "files": {
+    "images/.DS_Store": {
+      "checksum": "3470e8b6d4041622f521a614f98c66db"
+    },
+    "images/agenda.png": {
+      "checksum": "641aec95faad542603453e92e58f3ca8"
+    },
+    "images/bayes.png": {
+      "checksum": "2d656c18af1a7ef0a6b4074c916d8b9b"
+    },
+    "images/challenges.jpg": {
+      "checksum": "877e289b313c3223efea2ac87ab367bf"
+    },
+    "images/clinical.png": {
+      "checksum": "df058a6df5c17d20479b40809cea9fe5"
+    },
+    "images/data.jpg": {
+      "checksum": "0c02fa0a8f57a0efeb67cf5c1bbd6c7e"
+    },
+    "images/goals.jpg": {
+      "checksum": "ef3b5b322a9f1bba765ae0cb3700bb9a"
+    },
+    "images/graph-change-event-threshold.png": {
+      "checksum": "a5ef890ba5444215c7c1f1a94c7a7e85"
+    },
+    "images/graph-change-function.png": {
+      "checksum": "6fe1970e94743d5a912cd160a43ca201"
+    },
+    "images/graph-dispatched.png": {
+      "checksum": "174aab747df4135e746ddcafd3d7fc4c"
+    },
+    "images/graph-final.png": {
+      "checksum": "bd74489433822fcddd65643ec8e2678f"
+    },
+    "images/graph-functions.png": {
+      "checksum": "848cd1626c7faaab55e67a6c4c3439a4"
+    },
+    "images/graph-outdated.png": {
+      "checksum": "fd135a97a31f5dc4eba52de2d38670c9"
+    },
+    "images/graph-uptodate.png": {
+      "checksum": "793b754158608777bf41434017cf60f3"
+    },
+    "images/graph-years.png": {
+      "checksum": "b2b5769fdfe3509a35a315481dd7fe19"
+    },
+    "images/hazard_ratio.png": {
+      "checksum": "91106b267775dbae1fc48a8b34228541"
+    },
+    "images/images.pptx": {
+      "checksum": "2f5c689c176263ecee3fd8b45b64c7f3"
+    },
+    "images/infographic.png": {
+      "checksum": "08b103d4c825ea9a80798b765ebdc20d"
+    },
+    "images/logo-tweet.png": {
+      "checksum": "baabb47dae77d02628f43f03b3fe0b12"
+    },
+    "images/notebook-change.png": {
+      "checksum": "13d63a728dab88f92f53704a936c484f"
+    },
+    "images/notebook-complexity.png": {
+      "checksum": "c09ea169e05a561723a5ebb1722c8135"
+    },
+    "images/notebook-data.png": {
+      "checksum": "5e091af31e1341a6f1569af982ba6640"
+    },
+    "images/notebook-rerun.png": {
+      "checksum": "2227d6c3b412a10c10575c69d86da9bb"
+    },
+    "images/notebook-start.png": {
+      "checksum": "4f3c6afc89194afe8f1cd984e7fce852"
+    },
+    "images/plot-large-font.png": {
+      "checksum": "b977d77727ec97f2a1bc508413faf42e"
+    },
+    "images/plot.png": {
+      "checksum": "9bd601135fca2ddf6e8a0e553f9d2810"
+    },
+    "images/process.png": {
+      "checksum": "ee87d3132ffe6d7c72f770e47e29cdb5"
+    },
+    "images/qr-docs.png": {
+      "checksum": "1e017fba74702e5f0a80805b2779f2d1"
+    },
+    "images/qr-pipeline.png": {
+      "checksum": "254c6e16e8d1fe9ba00907e3de413146"
+    },
+    "images/qr-slides.png": {
+      "checksum": "0970df4cb58f2cf10a80f30349aea5be"
+    },
+    "images/quarto-source.png": {
+      "checksum": "ba658ba107994d7f77ad1ec56ae1ac37"
+    },
+    "images/quarto.png": {
+      "checksum": "c4122b98a810c7f541ff3296b25d0561"
+    },
+    "images/r.png": {
+      "checksum": "c9835cd1c2bddc2134387498ecb75be4"
+    },
+    "images/responsibility.png": {
+      "checksum": "77f2644daad867dfd091c4019b007b38"
+    },
+    "images/steps.jpg": {
+      "checksum": "299c55967d6145d54351c743debb1c60"
+    },
+    "images/stethoscope.jpg": {
+      "checksum": "f6705de68dda778b5502f31f1c55e732"
+    },
+    "images/targets.png": {
+      "checksum": "5346ed955faa6a799c85d40b679cd033"
+    },
+    "images/tweet.png": {
+      "checksum": "64362234615496631ae6885a2ce30d1d"
+    },
+    "images/workbench.png": {
+      "checksum": "0dc345fe4ca90fc4e8342d754712c706"
+    },
+    "images/years.png": {
+      "checksum": "b0b2a32cb693081640cb665bb4d142ed"
+    },
+    "index_files/libs/bootstrap/bootstrap-fe6593aca1dacbc749dc3d2ba78c8639.min.css": {
+      "checksum": "fe6593aca1dacbc749dc3d2ba78c8639"
+    },
+    "index_files/libs/bootstrap/bootstrap-icons.css": {
+      "checksum": "2318f137d201fbf51601fa0faba6bef7"
+    },
+    "index_files/libs/bootstrap/bootstrap-icons.woff": {
+      "checksum": "1a51dfbe5467607389d603c02a77cd10"
+    },
+    "index_files/libs/bootstrap/bootstrap.min.js": {
+      "checksum": "e2b09c06f0e714b6144a6788a28e3950"
+    },
+    "index_files/libs/clipboard/clipboard.min.js": {
+      "checksum": "15f52a1ee547f2bdd46e56747332ca2d"
+    },
+    "index_files/libs/quarto-html/anchor.min.js": {
+      "checksum": "91bcf6cd1fd88fec3f109811e5fc3546"
+    },
+    "index_files/libs/quarto-html/light-border.css": {
+      "checksum": "0b646459f2ef479b718a65b2157c44e4"
+    },
+    "index_files/libs/quarto-html/popper.min.js": {
+      "checksum": "3a4a291ccf3f1ea0f82b641542fd3827"
+    },
+    "index_files/libs/quarto-html/quarto-syntax-highlighting-07ba0ad10f5680c660e360ac31d2f3b6.css": {
+      "checksum": "07ba0ad10f5680c660e360ac31d2f3b6"
+    },
+    "index_files/libs/quarto-html/quarto.js": {
+      "checksum": "b2cce65711e74956eb7b7aa2f4d3943f"
+    },
+    "index_files/libs/quarto-html/tabby.min.js": {
+      "checksum": "c4219bb6375131a945d7e4bfc49c5f35"
+    },
+    "index_files/libs/quarto-html/tippy.css": {
+      "checksum": "ebd6f8ce46a677e1a4f5f8a8317109a9"
+    },
+    "index_files/libs/quarto-html/tippy.umd.min.js": {
+      "checksum": "d828775275749701b48bd9d958814111"
+    },
+    "index_files/libs/revealjs/dist/reset.css": {
+      "checksum": "4042c1a43777d540673cabc97cec67b2"
+    },
+    "index_files/libs/revealjs/dist/reveal.css": {
+      "checksum": "63603931663126b2803c8d50c5ec50a5"
+    },
+    "index_files/libs/revealjs/dist/reveal.esm.js": {
+      "checksum": "5d1b951e8804804eea44b7a50cf46be6"
+    },
+    "index_files/libs/revealjs/dist/reveal.esm.js.map": {
+      "checksum": "9d584b1cffa4cd297219f11a3b41baa4"
+    },
+    "index_files/libs/revealjs/dist/reveal.js": {
+      "checksum": "eca5d46a877fcf34cdad307d63755cc2"
+    },
+    "index_files/libs/revealjs/dist/reveal.js.map": {
+      "checksum": "dfd3ae7706b60dd68619d7415c5bb47c"
+    },
+    "index_files/libs/revealjs/dist/theme/fonts/league-gothic/league-gothic.css": {
+      "checksum": "488966d15e97f072801d7e348f4b5141"
+    },
+    "index_files/libs/revealjs/dist/theme/fonts/league-gothic/league-gothic.eot": {
+      "checksum": "9900a4643cc63c5d8f969d2196f72572"
+    },
+    "index_files/libs/revealjs/dist/theme/fonts/league-gothic/league-gothic.ttf": {
+      "checksum": "91295fa87df918411b49b7531da5d558"
+    },
+    "index_files/libs/revealjs/dist/theme/fonts/league-gothic/league-gothic.woff": {
+      "checksum": "cd382dc8a9d6317864b5810a320effc5"
+    },
+    "index_files/libs/revealjs/dist/theme/fonts/league-gothic/LICENSE": {
+      "checksum": "8fac5842e2f5a2e6bc067f5beb5035c9"
+    },
+    "index_files/libs/revealjs/dist/theme/fonts/source-sans-pro/LICENSE": {
+      "checksum": "8ea3e41b02e9f465515dad7c89459c5b"
+    },
+    "index_files/libs/revealjs/dist/theme/fonts/source-sans-pro/source-sans-pro-italic.eot": {
+      "checksum": "72217712eb8d28872e7069322f3fda23"
+    },
+    "index_files/libs/revealjs/dist/theme/fonts/source-sans-pro/source-sans-pro-italic.ttf": {
+      "checksum": "8256cfd7e4017a7690814879409212cd"
+    },
+    "index_files/libs/revealjs/dist/theme/fonts/source-sans-pro/source-sans-pro-italic.woff": {
+      "checksum": "e74f0128884561828ce8c9cf5c284ab8"
+    },
+    "index_files/libs/revealjs/dist/theme/fonts/source-sans-pro/source-sans-pro-regular.eot": {
+      "checksum": "1d71438462d532b62b05cdd7e6d7197d"
+    },
+    "index_files/libs/revealjs/dist/theme/fonts/source-sans-pro/source-sans-pro-regular.ttf": {
+      "checksum": "2da39ecf9246383937da11b44b7bd9b4"
+    },
+    "index_files/libs/revealjs/dist/theme/fonts/source-sans-pro/source-sans-pro-regular.woff": {
+      "checksum": "e7acc589bb558fe58936a853f570193c"
+    },
+    "index_files/libs/revealjs/dist/theme/fonts/source-sans-pro/source-sans-pro-semibold.eot": {
+      "checksum": "0f3da1edf1b5c6a94a6ad948a7664451"
+    },
+    "index_files/libs/revealjs/dist/theme/fonts/source-sans-pro/source-sans-pro-semibold.ttf": {
+      "checksum": "f3565095e6c9158140444970f5a2c5ed"
+    },
+    "index_files/libs/revealjs/dist/theme/fonts/source-sans-pro/source-sans-pro-semibold.woff": {
+      "checksum": "1cb8e94f1185f1131a0c895165998f2b"
+    },
+    "index_files/libs/revealjs/dist/theme/fonts/source-sans-pro/source-sans-pro-semibolditalic.eot": {
+      "checksum": "58153ac7194e141d1e73ea88c6b63861"
+    },
+    "index_files/libs/revealjs/dist/theme/fonts/source-sans-pro/source-sans-pro-semibolditalic.ttf": {
+      "checksum": "c7e698a4d0956f4a939f42a05685bbf5"
+    },
+    "index_files/libs/revealjs/dist/theme/fonts/source-sans-pro/source-sans-pro-semibolditalic.woff": {
+      "checksum": "6b058fc2634b01d837c3432316c3141f"
+    },
+    "index_files/libs/revealjs/dist/theme/fonts/source-sans-pro/source-sans-pro.css": {
+      "checksum": "b4b58710f05264a4011912211d0a9eed"
+    },
+    "index_files/libs/revealjs/dist/theme/quarto-27a844e7d43f0d31b27642e48490372a.css": {
+      "checksum": "27a844e7d43f0d31b27642e48490372a"
+    },
+    "index_files/libs/revealjs/plugin/highlight/highlight.esm.js": {
+      "checksum": "19a0f6f1a902d2ef9aaefa1e046b3b2e"
+    },
+    "index_files/libs/revealjs/plugin/highlight/highlight.js": {
+      "checksum": "bebce5c694268a3f8dff84a58b270ba3"
+    },
+    "index_files/libs/revealjs/plugin/highlight/monokai.css": {
+      "checksum": "8c43a819e1268fc57605f500adff816b"
+    },
+    "index_files/libs/revealjs/plugin/highlight/plugin.js": {
+      "checksum": "df2b6cec81d1c3d9730ef2b9421f62a1"
+    },
+    "index_files/libs/revealjs/plugin/highlight/zenburn.css": {
+      "checksum": "28d5b9497037a12cb5a15644fea2f1c3"
+    },
+    "index_files/libs/revealjs/plugin/markdown/markdown.esm.js": {
+      "checksum": "51cf543919182a054e69a3d632356296"
+    },
+    "index_files/libs/revealjs/plugin/markdown/markdown.js": {
+      "checksum": "e19760d2cc93d38d5df00081a1893828"
+    },
+    "index_files/libs/revealjs/plugin/markdown/plugin.js": {
+      "checksum": "a1da0411f474b5bc82d1cc79faf4d0c1"
+    },
+    "index_files/libs/revealjs/plugin/math/katex.js": {
+      "checksum": "2a22abd1eb5a1c923f2d41178427715a"
+    },
+    "index_files/libs/revealjs/plugin/math/math.esm.js": {
+      "checksum": "51b0b5e4a4dd80029ab90fb9ded6b67c"
+    },
+    "index_files/libs/revealjs/plugin/math/math.js": {
+      "checksum": "744ade9a5dacddb69f35ee96cfd6f74a"
+    },
+    "index_files/libs/revealjs/plugin/math/mathjax2.js": {
+      "checksum": "c1ea64afa05c3677d2c404755193b2be"
+    },
+    "index_files/libs/revealjs/plugin/math/mathjax3.js": {
+      "checksum": "57d54e9c4fb748505b3709484593834a"
+    },
+    "index_files/libs/revealjs/plugin/math/plugin.js": {
+      "checksum": "ec9cb99b85a8026d24b26526f6effe0d"
+    },
+    "index_files/libs/revealjs/plugin/notes/notes.esm.js": {
+      "checksum": "e1d960e6895a06986c9509c30ba784b2"
+    },
+    "index_files/libs/revealjs/plugin/notes/notes.js": {
+      "checksum": "db8fab48fe15b175ca69e99f8af2fdfc"
+    },
+    "index_files/libs/revealjs/plugin/notes/plugin.js": {
+      "checksum": "9e52c9625a2f659373cc6e4c5ccf5b80"
+    },
+    "index_files/libs/revealjs/plugin/notes/speaker-view.html": {
+      "checksum": "3e84d135161198849174057abe95b91c"
+    },
+    "index_files/libs/revealjs/plugin/pdf-export/pdfexport.js": {
+      "checksum": "d851935da36e7b598d2d57764599f88b"
+    },
+    "index_files/libs/revealjs/plugin/pdf-export/plugin.yml": {
+      "checksum": "76add7202812cd14a48ca57b96777de4"
+    },
+    "index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css": {
+      "checksum": "4ba6b644b711bc2fc89389d78209da6d"
+    },
+    "index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js": {
+      "checksum": "51cc37b684f5af8171d58269f6c18f07"
+    },
+    "index_files/libs/revealjs/plugin/quarto-line-highlight/plugin.yml": {
+      "checksum": "4af9468c1cc516c6b54c12e686ba708f"
+    },
+    "index_files/libs/revealjs/plugin/quarto-support/footer.css": {
+      "checksum": "b756f7eedcfd9b82421dd144f0ef7578"
+    },
+    "index_files/libs/revealjs/plugin/quarto-support/plugin.yml": {
+      "checksum": "4f79b4a104bed30cd5b7b49d598bed88"
+    },
+    "index_files/libs/revealjs/plugin/quarto-support/support.js": {
+      "checksum": "5e0f36c9d7561064a39a970bd13d710d"
+    },
+    "index_files/libs/revealjs/plugin/reveal-menu/menu.css": {
+      "checksum": "1b9988f08dfe354c44e134304b3df8af"
+    },
+    "index_files/libs/revealjs/plugin/reveal-menu/menu.js": {
+      "checksum": "8db4f7eb4ad5670e6be4bdf83c389ca2"
+    },
+    "index_files/libs/revealjs/plugin/reveal-menu/plugin.yml": {
+      "checksum": "b949d3d3d5bdf5b5f508e6bfb328798e"
+    },
+    "index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css": {
+      "checksum": "c8715037656f6595dbc3d9145fc7d8ac"
+    },
+    "index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js": {
+      "checksum": "d7e0fadc3011a74b823d1bb5006ffa9b"
+    },
+    "index_files/libs/revealjs/plugin/search/plugin.js": {
+      "checksum": "e39d5a868aff604a4bec144ae7a43c5b"
+    },
+    "index_files/libs/revealjs/plugin/search/search.esm.js": {
+      "checksum": "1ff0e5fd23d9e0790498078f4acd37e8"
+    },
+    "index_files/libs/revealjs/plugin/search/search.js": {
+      "checksum": "e265925ae6ee6ec778ed10ecba3c3da0"
+    },
+    "index_files/libs/revealjs/plugin/zoom/plugin.js": {
+      "checksum": "75d50a8cac0d19f0824a1c5876d36673"
+    },
+    "index_files/libs/revealjs/plugin/zoom/zoom.esm.js": {
+      "checksum": "c0a980f05da4f0bdd2ef6c8227fce9d3"
+    },
+    "index_files/libs/revealjs/plugin/zoom/zoom.js": {
+      "checksum": "9c28a4d1f1502771665328f6abb091c0"
+    },
+    "index.html": {
+      "checksum": "132915b1cca9e33800e160e4390f60b6"
+    },
+    "style.css": {
+      "checksum": "3f2b897807c27551f3653186bb799f67"
+    }
+  },
+  "users": null
+}
