@@ -266,11 +266,11 @@ Function | Description
 <br>
 
 ```{r}
-trial(hazard_ratio = 1.2, events = 50)
+trial(hazard_ratio = 0.5, events = 50)
 #> # A tibble: 1 × 4
 #>   events efficacy enrolled years
 #>    <dbl>    <dbl>    <dbl> <dbl>
-#> 1     50   0.0324       72  7.35
+#> 1     50    0.998       83  8.52
 ```
 
 ## Example simulation replication
@@ -281,11 +281,11 @@ trial(hazard_ratio = 1.2, events = 50)
 <br>
 
 ```{r}
-trial(hazard_ratio = 0.5, events = 50)
+trial(hazard_ratio = 1.2, events = 50)
 #> # A tibble: 1 × 4
 #>   events efficacy enrolled years
 #>    <dbl>    <dbl>    <dbl> <dbl>
-#> 1     50    0.998       83  8.52
+#> 1     50   0.0324       72  7.35
 ```
 
 # Workflow pitfalls
@@ -418,7 +418,7 @@ list(
 )
 ```
 
-## Options
+## Options and parallel computing
 
 ```{r}
 library(crew.cluster)
@@ -575,9 +575,25 @@ tar_read(plot)
 
 ## Quarto report
 
+::::{.columns}
+
+:::{.column width="50%"}
+
 <center>
-<img src="./images/quarto.png" height="550px">
+<img src="./images/quarto-source.png">
 </center>
+
+:::
+
+:::{.column width="50%"}
+
+<center>
+<img src="./images/quarto.png">
+</center>
+
+:::
+
+::::
 
 ## Add a new target
 

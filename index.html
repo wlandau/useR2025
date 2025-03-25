@@ -454,11 +454,11 @@ h(y) &lt; 0.4
 </center>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">trial</span>(<span class="at">hazard_ratio =</span> <span class="fl">1.2</span>, <span class="at">events =</span> <span class="dv">50</span>)</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">trial</span>(<span class="at">hazard_ratio =</span> <span class="fl">0.5</span>, <span class="at">events =</span> <span class="dv">50</span>)</span>
 <span id="cb1-2"><a href=""></a><span class="co">#&gt; # A tibble: 1 × 4</span></span>
 <span id="cb1-3"><a href=""></a><span class="co">#&gt;   events efficacy enrolled years</span></span>
 <span id="cb1-4"><a href=""></a><span class="co">#&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb1-5"><a href=""></a><span class="co">#&gt; 1     50   0.0324       72  7.35</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href=""></a><span class="co">#&gt; 1     50    0.998       83  8.52</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="example-simulation-replication-1" class="slide level2">
@@ -468,11 +468,11 @@ h(y) &lt; 0.4
 </center>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="fu">trial</span>(<span class="at">hazard_ratio =</span> <span class="fl">0.5</span>, <span class="at">events =</span> <span class="dv">50</span>)</span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="fu">trial</span>(<span class="at">hazard_ratio =</span> <span class="fl">1.2</span>, <span class="at">events =</span> <span class="dv">50</span>)</span>
 <span id="cb2-2"><a href=""></a><span class="co">#&gt; # A tibble: 1 × 4</span></span>
 <span id="cb2-3"><a href=""></a><span class="co">#&gt;   events efficacy enrolled years</span></span>
 <span id="cb2-4"><a href=""></a><span class="co">#&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb2-5"><a href=""></a><span class="co">#&gt; 1     50    0.998       83  8.52</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-5"><a href=""></a><span class="co">#&gt; 1     50   0.0324       72  7.35</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section>
 <section>
@@ -610,8 +610,8 @@ h(y) &lt; 0.4
 <span id="cb7-11"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="options" class="slide level2">
-<h2>Options</h2>
+<section id="options-and-parallel-computing" class="slide level2">
+<h2>Options and parallel computing</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="fu">library</span>(crew.cluster)</span>
 <span id="cb8-2"><a href=""></a></span>
@@ -757,9 +757,16 @@ h(y) &lt; 0.4
 </section>
 <section id="quarto-report-1" class="slide level2">
 <h2>Quarto report</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
 <center>
-<img src="./images/quarto.png" height="550px">
+<img src="./images/quarto-source.png">
 </center>
+</div><div class="column" style="width:50%;">
+<center>
+<img src="./images/quarto.png">
+</center>
+</div></div>
 </section>
 <section id="add-a-new-target" class="slide level2">
 <h2>Add a new target</h2>
