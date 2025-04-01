@@ -134,37 +134,40 @@ knitr::opts_chunk$set(
 
 :::{.fragment}
 
-#### Survival endpoint: years without liver transplant or death
-
-$$
-\begin{aligned}
-E(y_i(t)) &= \eta_i(t) \\
-&= x_i(t) \beta + b_i
-\end{aligned}
-$$
-:::
-
-:::{.fragment}
 
 #### Longitudinal endpoint: log bilirubin
 
 $$
 \begin{aligned}
-h_i(t) = h_0(t, \lambda) \exp \left (\eta_i(t) \alpha + \gamma + d_i \color{blue}{\boldsymbol{\theta}} \right )
+\color{orange}{\eta_i(t)} = x_i(t) \beta + b_i
+\end{aligned}
+$$
+
+:::
+
+* $\color{orange}{\eta_i(t)}$: expected log bilirubin for patient $i$ at time $t$. 
+
+:::{.fragment}
+
+#### Survival endpoint: years without liver transplant or death
+
+$$
+\begin{aligned}
+h_i(t) = h_0(t, \lambda) \exp \left (\color{orange}{\eta_i(t)} \alpha + \gamma + d_i \color{blue}{\theta} \right )
 \end{aligned}
 $$
 
 :::
 
 * $d_i$: 1 for treatment, 0 for control.
-* $\color{blue}{\boldsymbol{\theta}}$: log hazard ratio of treatment vs control.
+* $\color{blue}{\theta}$: log hazard ratio of treatment vs control.
 
 ## Decision rules {.nonincremental}
 
 
 $$
 \begin{aligned}
-h(y) = \text{P}(\exp(\color{blue}{\boldsymbol{\theta}}) < 0.75 \ | \ y)
+g(y) = \text{P}(\exp(\color{blue}{\theta}) < 0.75 \ | \ y)
 \end{aligned}
 $$
 
@@ -174,7 +177,7 @@ $$
 
 $$
 \begin{aligned}
-h(y) > 0.8
+g(y) > 0.8
 \end{aligned}
 $$
 :::
@@ -185,7 +188,7 @@ $$
 
 $$
 \begin{aligned}
-h(y) < 0.4
+g(y) < 0.4
 \end{aligned}
 $$
 
@@ -614,8 +617,6 @@ tar_target(
 
 ```{r}
 tar_make()
-#> ✔ skipping targets (1 so far)...
-#> ✔ skipping targets (160 so far)...
 #> ...
 #> ✔ skipping targets (40002 so far)...
 #> ▶ dispatched target years

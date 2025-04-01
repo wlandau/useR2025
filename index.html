@@ -317,39 +317,41 @@ Will Landau
 <section id="bayesian-joint-model" class="slide level2 nonincremental">
 <h2>Bayesian joint model</h2>
 <div class="fragment">
-<h4 id="survival-endpoint-years-without-liver-transplant-or-death">Survival endpoint: years without liver transplant or death</h4>
-<p><span class="math display">\[
-\begin{aligned}
-E(y_i(t)) &amp;= \eta_i(t) \\
-&amp;= x_i(t) \beta + b_i
-\end{aligned}
-\]</span></p>
-</div>
-<div class="fragment">
 <h4 id="longitudinal-endpoint-log-bilirubin">Longitudinal endpoint: log bilirubin</h4>
 <p><span class="math display">\[
 \begin{aligned}
-h_i(t) = h_0(t, \lambda) \exp \left (\eta_i(t) \alpha + \gamma + d_i \color{blue}{\boldsymbol{\theta}} \right )
+\color{orange}{\eta_i(t)} = x_i(t) \beta + b_i
+\end{aligned}
+\]</span></p>
+</div>
+<ul>
+<li class="fragment"><span class="math inline">\(\color{orange}{\eta_i(t)}\)</span>: expected log bilirubin for patient <span class="math inline">\(i\)</span> at time <span class="math inline">\(t\)</span>.</li>
+</ul>
+<div class="fragment">
+<h4 id="survival-endpoint-years-without-liver-transplant-or-death">Survival endpoint: years without liver transplant or death</h4>
+<p><span class="math display">\[
+\begin{aligned}
+h_i(t) = h_0(t, \lambda) \exp \left (\color{orange}{\eta_i(t)} \alpha + \gamma + d_i \color{blue}{\theta} \right )
 \end{aligned}
 \]</span></p>
 </div>
 <ul>
 <li class="fragment"><span class="math inline">\(d_i\)</span>: 1 for treatment, 0 for control.</li>
-<li class="fragment"><span class="math inline">\(\color{blue}{\boldsymbol{\theta}}\)</span>: log hazard ratio of treatment vs control.</li>
+<li class="fragment"><span class="math inline">\(\color{blue}{\theta}\)</span>: log hazard ratio of treatment vs control.</li>
 </ul>
 </section>
 <section id="decision-rules" class="slide level2 nonincremental">
 <h2>Decision rules</h2>
 <p><span class="math display">\[
 \begin{aligned}
-h(y) = \text{P}(\exp(\color{blue}{\boldsymbol{\theta}}) &lt; 0.75 \ | \ y)
+g(y) = \text{P}(\exp(\color{blue}{\theta}) &lt; 0.75 \ | \ y)
 \end{aligned}
 \]</span></p>
 <div class="fragment">
 <h4 id="declare-efficacy-if">Declare efficacy if:</h4>
 <p><span class="math display">\[
 \begin{aligned}
-h(y) &gt; 0.8
+g(y) &gt; 0.8
 \end{aligned}
 \]</span></p>
 </div>
@@ -357,7 +359,7 @@ h(y) &gt; 0.8
 <h4 id="declare-futility-if">Declare futility if:</h4>
 <p><span class="math display">\[
 \begin{aligned}
-h(y) &lt; 0.4
+g(y) &lt; 0.4
 \end{aligned}
 \]</span></p>
 </div>
@@ -785,11 +787,9 @@ h(y) &lt; 0.4
 <p><br></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href=""></a><span class="fu">tar_make</span>()</span>
-<span id="cb22-2"><a href=""></a><span class="co">#&gt; ✔ skipping targets (1 so far)...</span></span>
-<span id="cb22-3"><a href=""></a><span class="co">#&gt; ✔ skipping targets (160 so far)...</span></span>
-<span id="cb22-4"><a href=""></a><span class="co">#&gt; ...</span></span>
-<span id="cb22-5"><a href=""></a><span class="co">#&gt; ✔ skipping targets (40002 so far)...</span></span>
-<span id="cb22-6"><a href=""></a><span class="co">#&gt; ▶ dispatched target years</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-2"><a href=""></a><span class="co">#&gt; ...</span></span>
+<span id="cb22-3"><a href=""></a><span class="co">#&gt; ✔ skipping targets (40002 so far)...</span></span>
+<span id="cb22-4"><a href=""></a><span class="co">#&gt; ▶ dispatched target years</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="years-until-interim" class="slide level2">
