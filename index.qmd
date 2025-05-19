@@ -208,7 +208,7 @@ $$
 
 ![](./images/bayes.png)
 
-* Simulate 1000 futile trials for $n = 40, 50, 60, 70$.
+* Simulate 10000 futile trials for $n = 40, 50, 60, 70$.
 * A fixed hazard ratio of 1 would be unrealistic.
 * Instead, draw from a distribution that captures futility.
 * Use the posterior distribution from a historical trial.
