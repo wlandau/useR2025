@@ -94,8 +94,13 @@ knitr::opts_chunk$set(
 <img src="./images/goals.jpg" height="300px">
 </center>
 
-* Quantify decision-making ability.
-* Compare alternative designs.
+. . .
+
+Quantify decision-making ability.
+
+. . .
+
+Compare alternative designs.
 
 ## Clinical trial simulation: steps
 
@@ -113,9 +118,17 @@ knitr::opts_chunk$set(
 <img src="./images/challenges.jpg" height="300px">
 </center>
 
-* Complicated R code.
-* Long execution times.
-* Frequent changes.
+. . .
+
+Complicated R code.
+
+. . .
+
+Long execution times.
+
+. . .
+
+Frequent changes.
 
 # Example trial
 
@@ -125,10 +138,21 @@ knitr::opts_chunk$set(
 <img src="./images/stethoscope.jpg" height="300px">
 </center>
 
-* Extremely rare autoimmune liver disease.
-* Phase 2 study, first look at efficacy.
-* Novel therapy vs active control.
-* Randomize up to 100 patients (1:1).
+. . .
+
+Extremely rare autoimmune liver disease.
+
+. . .
+
+Phase 2 study, first look at efficacy.
+
+. . .
+
+Novel therapy vs active control.
+
+. . .
+
+Randomize up to 100 patients (1:1).
 
 ## Bayesian joint model {.nonincremental}
 
@@ -145,7 +169,9 @@ $$
 
 :::
 
-* $\color{orange}{\eta_i(t)}$: expected log bilirubin for patient $i$ at time $t$. 
+. . .
+
+$\color{orange}{\eta_i(t)}$: expected log bilirubin for patient $i$ at time $t$. 
 
 :::{.fragment}
 
@@ -159,8 +185,13 @@ $$
 
 :::
 
-* $d_i$: 1 for treatment, 0 for control.
-* $\color{blue}{\theta}$: log hazard ratio of treatment vs control.
+. . .
+
+$d_i$: 1 for treatment, 0 for control.
+
+. . .
+
+$\color{blue}{\theta}$: log hazard ratio of treatment vs control.
 
 ## Decision rules {.nonincremental}
 
@@ -200,18 +231,37 @@ $$
 <img src="./images/stethoscope.jpg" height="300px">
 </center>
 
-* 10-year accrual period.
-* Futility interim at $n$ events (liver transplant or death).
-* **Goal: simulate to propose a suitable $n$**.
+. . .
+
+10-year accrual period.
+
+. . .
+
+Futility interim at $n$ events (liver transplant or death).
+
+. . .
+
+**Goal: simulate to propose a suitable $n$**.
 
 ## Simulate futility
 
 ![](./images/bayes.png)
 
-* Simulate 10000 futile trials for $n = 40, 50, 60, 70$.
-* A fixed hazard ratio of 1 would be unrealistic.
-* Instead, draw from a distribution that captures futility.
-* Use the posterior distribution from a historical trial.
+. . .
+
+Simulate 10000 futile trials for $n = 40, 50, 60, 70$.
+
+. . .
+
+A fixed hazard ratio of 1 would be unrealistic.
+
+. . .
+
+Instead, draw from a distribution that captures futility.
+
+. . .
+
+Use the posterior distribution from a historical trial.
 
 ## Historical futility data
 
@@ -219,10 +269,21 @@ $$
 <img src="./images/data.jpg" height="300px">
 </center>
 
-* Datasets `pbc` and `pbcseq` from the `survival` package.
-* Indication: primary biliary cholangitis (PBC).
-* Mayo Clinic trial of D-penicillamine vs placebo.
-* D-penicillamine did not improve survival.
+. . .
+
+Datasets `pbc` and `pbcseq` from the `survival` package.
+
+. . .
+
+Indication: primary biliary cholangitis (PBC).
+
+. . .
+
+Mayo Clinic trial of D-penicillamine vs placebo.
+
+. . .
+
+D-penicillamine did not improve survival.
 
 ## Estimated hazard ratio
 
@@ -297,7 +358,7 @@ trial(hazard_ratio = 1.2, events = 50)
 
 :::{.nonincremental}
 
-* Step 1: draw historical hazard ratios.
+Step 1: draw historical hazard ratios.
 
 ```{r}
 hazard_ratio <- draw_hazard_ratios(10000)
@@ -305,7 +366,7 @@ hazard_ratio <- draw_hazard_ratios(10000)
 
 :::{.fragment}
 
-* Step 2: run simulations.
+Step 2: run simulations.
 
 ```{r}
 results <- hazard_ratio |>
@@ -361,9 +422,17 @@ plot_results(results)
 <img src="./images/graph-final.png" height = "300px">
 </center>
 
-* Pipeline: a formal group of tasks.
-* Each task declares a command, dependencies, and output.
-* A task cannot eventually depend on itself.
+.  . .
+
+Pipeline: a formal group of tasks.
+
+. . .
+
+Each task declares a command, dependencies, and output.
+
+. . .
+
+A task cannot eventually depend on itself.
 
 ## Pipeline tools
 
@@ -381,10 +450,21 @@ plot_results(results)
 <img src="./images/logo-tweet.png" height="300px">
 </center>
 
-* Retains the comfort of your local R session.
-* Declares dependencies implicitly.
-* Integrates with Quarto.
-* Runs distributed computing.
+. . .
+
+Retains the comfort of your local R session.
+
+. . .
+
+Declares dependencies implicitly.
+
+. . .
+
+Integrates with Quarto.
+
+. . .
+
+Runs distributed computing.
 
 # Example pipeline
 
@@ -402,8 +482,13 @@ fs::dir_tree()
 #> └── utils.R
 ```
 
-* `R/` scripts contain functions.
-* `_targets.R` defines the pipeline.
+. . .
+
+`R/` scripts contain functions.
+
+. . .
+
+`_targets.R` defines the pipeline.
 
 ## Define the pipeline in _targets.R
 
@@ -651,7 +736,6 @@ tar_target(
 <img src="./images/graph-change-function.png">
 </center>
 
-
 ## Up-to-date pipeline
 
 ```{r}
@@ -669,16 +753,214 @@ tar_visnetwork(targets_only = TRUE)
 <img src="./images/graph-uptodate.png">
 </center>
 
-# Recap
-
 ## Conclusions
 
 <center>
 <img src="./images/plot-large-font.png" height = "400px">
 </center>
 
-* Interim at 40 events looks promising.
-* Need to simulate full design with interims and final analysis.
+. . .
+
+Interim at 40 events looks promising.
+
+. . .
+
+Need to simulate full design with interims and final analysis
+
+# Example pipeline: Bayesian model validation
+
+## Bayesian MMRM
+
+![](./images/fev.png){fig-align="center"}
+
+. . .
+
+MMRM = mixed model for repeated measures.
+
+. . .
+
+Longitudinal data with continuous outcomes.
+
+. . .
+
+Bayesian MMRMs: phase 2 neurology, pulmonology, etc.
+
+## Implementation
+
+![](./images/brms.mmrm.png){fig-align="center"}
+
+## Computational demands of Stan/HMC
+
+![](./images/hmc.png){fig-align="center"}
+
+
+. . .
+
+HMC = Hamiltonian Monte Carlo.
+
+. . .
+
+Physics simulation samples from the posterior distribution.
+
+## Modeling scenarios
+
+$$
+\begin{aligned}
+\mathbf{y}_1, \ldots, \mathbf{y}_n \stackrel{\text{ind}}{\sim} \text{MVN}(X_n\mathbf{\beta}, {\color{blue} \Sigma})
+\end{aligned}
+$$
+
+::: {.nonincremental}
+
+1. Subgroup analysis with unstructured covariance ${\color{blue} \Sigma}$.
+2. Unstructured ${\color{blue} \Sigma}$.
+3. Autoregressive moving average ${\color{blue} \Sigma}$.
+4. Autoregressive ${\color{blue} \Sigma}$.
+5. Moving average ${\color{blue} \Sigma}$.
+6. Uncorrelated residuals.
+
+:::
+
+## Validation {style="font-size: 90%"}
+
+![](./images/bayes.png){fig-align="center"}
+
+. . . 
+
+Simulation-based calibration (SBC) checking. ([Modrák et al. (2023)](https://projecteuclid.org/journals/bayesian-analysis/volume--1/issue--1/Simulation-Based-Calibration-Checking-for-Bayesian-Computation--The-Choice/10.1214/23-BA1404.full))
+
+. . .
+
+<br>
+
+Problem: easy to simulate from prior, hard to model posterior.
+
+. . .
+
+<br>
+
+Solution: simulation where prior and posterior should agree. 
+
+## Repeat thousands of times {style="font-size: 85%"}
+
+1. Draw a set of parameters from the prior.
+
+:::{.fragment}
+
+$$
+\begin{aligned}
+\theta^{\text{sim}} &\sim p(\theta)
+\end{aligned}
+$$
+:::
+
+2. Draw a dataset given parameters from (1).
+
+:::{.fragment}
+
+$$
+\begin{aligned}
+y^{\text{sim}} &\sim p(y | \theta^{\text{sim}})
+\end{aligned}
+$$
+
+:::
+
+3. Draw parameter samples from the posterior.
+
+:::{.fragment}
+
+$$
+\begin{aligned}
+\theta^{(1)}, \ldots, \theta^{(M)} &\sim p(\theta | y^{\text{sim}})
+\end{aligned}
+$$
+
+:::
+
+## Why SBC works {style="font-size: 80%"}
+
+::: {.nonincremental}
+
+<br>
+
+Equivalent to integrating out $\theta^{\text{sim}}$ and $y^{\text{sim}}$ to get the prior back:
+
+:::
+
+<br>
+
+$$
+p(\theta) = \int \int p(\theta | y^{\text{sim}}) p(y^{\text{sim}} | \theta^{\text{sim}}) p(\theta^{\text{sim}}) d \theta^{\text{sim}} d y^{\text{sim}}
+$$
+
+<br>
+
+. . .
+
+Use ranks $\sum_{m = 1}^M I \left [ \theta^{(m)}_i < \theta^{\text{sim}}_i
+\right ]$ to check that the posterior and prior agree.
+
+. . .
+
+<br>
+
+Ranks should be uniformly distributed.
+
+## Branching with tarchetypes
+
+::: {style="font-size: 0.9em;"}
+
+```r
+tar_map( # Static branching over scenarios
+  values = scenarios,
+  
+  tar_target(
+    name = prior,
+    command = setup_prior(scenario)
+  ),
+  
+  tar_rep( # Dynamic branching for simulations
+    name = ranks,
+    command = run_simulation(scenario, prior),
+    batches = 1000,
+    reps = 1
+  )
+)
+```
+
+:::
+
+
+## Auto-scaled distributed computing
+
+![](./images/parallel1.png){fig-align="center"}
+
+## Auto-scaled distributed computing
+
+![](./images/parallel2.png){fig-align="center"}
+
+## Auto-scaled distributed computing
+
+![](./images/parallel3.png){fig-align="center"}
+
+## Auto-scaled distributed computing
+
+![](./images/parallel4.png){fig-align="center"}
+
+
+## Validation results
+
+![](./images/ranks.png){fig-align="center"}
+
+::: {.nonincremental}
+
+SBC ranks are roughly uniform, as expected.
+
+:::
+
+# Recap
+
 
 ## Benefits of pipeline tools
 
@@ -697,10 +979,10 @@ tar_visnetwork(targets_only = TRUE)
 :::{.column width="50%"}
 
 <center>
-<div style="font-size: 2em">
-* Time savings
-* Reproducibility
-* Peace of mind
+<div style="font-size: 2em;">
+1. Time savings
+2. Reproducibility
+3. Peace of mind
 </div>
 </center>
 
@@ -708,42 +990,24 @@ tar_visnetwork(targets_only = TRUE)
 
 ::::
 
-## {.nonincremental}
 
-::::{.columns}
+## Links to resources
 
-:::{.column width="33%"}
+::: {.nonincremental}
 
-<center>
-<span style= "font-size: 1.5em; font-weight: bold;">targets</span>
-<a href="https://docs.ropensci.org/targets/"><img src="./images/qr-docs.png"></a>
-</center>
+* [`targets`](https://docs.ropensci.org/targets)
+* [Clinical trial simulation pipeline](https://github.com/wlandau/targets-example-liver)
+* [Bayesian MMRM SBC pipeline](https://github.com/openpharma/brms.mmrm/tree/main/vignettes/sbc)
 
 :::
 
-:::{.column width="33%"}
+## Link to slides {.nonincremental}
+
+<https://wlandau.github.io/useR2025>
 
 <center>
-<span style= "font-size: 1.5em; font-weight: bold;">slides</span>
-<a href="https://wlandau.github.io/useR2025"><img src="./images/qr-slides.png"></a>
+<a href="https://wlandau.github.io/useR2025"><img src="./images/qr-slides.png" height="500px"></a>
 </center>
-
-:::
-
-:::{.column width="33%"}
-
-<center>
-<span style= "font-size: 1.5em; font-weight: bold;">pipeline</span>
-<a href="https://github.com/wlandau/targets-example-liver"><img src="./images/qr-pipeline.png"></a>
-</center>
-
-:::
-
-::::
-
-<br>
-
-Special thanks to rOpenSci!
 
 ## Sources {.tiny}
 
@@ -752,8 +1016,10 @@ Special thanks to rOpenSci!
 * Brilleman, S. L., M. J. Crowther, M. Moreno-Betancur, J. Buros Novik, and R. Wolfe. 2018. "Joint Longitudinal and Time-to-Event Models via Stan." In StanCon 2018. https://github.com/stan-dev/stancon_talks/.
 * Dickson, E. R., T. R. Fleming, R. H. Wiesner, W. P. Baldus, C. R. Fleming, J. Ludwig, and J. T. McCall. 1985. "Trial of Penicillamine in Advanced Primary Biliary Cirrhosis." New England Journal of Medicine 312 (16): 1011–15. https://doi.org/10.1056/NEJM198504183121602.
 * Goodrich, B., J. Gabry, I. Ali, and S. L. Brilleman. 2024. "rstanarm: Bayesian applied regression modeling via Stan." https://mc-stan.org/rstanarm.
+* Landau, W. M., Kunzmann, K., Sidi, Y., Stock, C. 2024. "brms.mmrm: Bayesian MMRMs using 'brms'". R package version 1.1.1, <https://openpharma.github.io/brms.mmrm/>.
 * Landau, W. M. 2021. "The targets R package: a dynamic Make-like function-oriented pipeline toolkit for reproducibility and high-performance computing." Journal of Open Source Software 6 (57): 2959. https://doi.org/10.21105/joss.02959.
 * Lawrence, G. A., M. E. Boye, M. J. Crowther, J. G. Ibrahim, G. Quartey, S. Micallef, and F. Y. Bois. 2016. "Joint modeling of survival and longitudinal non-survival data: current methods and issues. Report of the DIA Bayesian joint modeling working group." Statistics in Medicine 34 (14): 2181–95. https://doi.org/10.1002/sim.6141.
+* Modrák, M., Moon, A. H., Kim, S., Bürkner, P., Huurre, N., Faltejsková, K., Gelman, A., Vehtari, A. 2023. "Simulation-Based Calibration Checking for Bayesian Computation: The Choice of Test Quantities Shapes Sensitivity". Bayesian Analysis. <https://doi.org/10.1214/23-BA1404>.
 * Therneau, T. M., and P. M. Grambsch. 2000. Modeling Survival Data: Extending the Cox Model. New York: Springer.
 :::
 
@@ -770,5 +1036,6 @@ Special thanks to rOpenSci!
 * <https://unsplash.com/photos/white-printing-paper-with-numbers-Wpnoqo2plFA>
 * <https://unsplash.com/photos/woman-in-brown-sweater-covering-her-face-with-her-hand-_sh9vkVbVgo>
 * <https://unsplash.com/license>
+* `images/hmc.png`: Prof. David Kahle, Baylor University.
 
 :::

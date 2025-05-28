@@ -271,10 +271,12 @@ Will Landau
 <center>
 <img src="./images/goals.jpg" height="300px">
 </center>
-<ul>
-<li class="fragment">Quantify decision-making ability.</li>
-<li class="fragment">Compare alternative designs.</li>
-</ul>
+<div class="fragment">
+<p>Quantify decision-making ability.</p>
+</div>
+<div class="fragment">
+<p>Compare alternative designs.</p>
+</div>
 </section>
 <section id="clinical-trial-simulation-steps" class="slide level2">
 <h2>Clinical trial simulation: steps</h2>
@@ -292,11 +294,15 @@ Will Landau
 <center>
 <img src="./images/challenges.jpg" height="300px">
 </center>
-<ul>
-<li class="fragment">Complicated R code.</li>
-<li class="fragment">Long execution times.</li>
-<li class="fragment">Frequent changes.</li>
-</ul>
+<div class="fragment">
+<p>Complicated R code.</p>
+</div>
+<div class="fragment">
+<p>Long execution times.</p>
+</div>
+<div class="fragment">
+<p>Frequent changes.</p>
+</div>
 </section></section>
 <section>
 <section id="example-trial" class="title-slide slide level1 center">
@@ -308,12 +314,18 @@ Will Landau
 <center>
 <img src="./images/stethoscope.jpg" height="300px">
 </center>
-<ul>
-<li class="fragment">Extremely rare autoimmune liver disease.</li>
-<li class="fragment">Phase 2 study, first look at efficacy.</li>
-<li class="fragment">Novel therapy vs active control.</li>
-<li class="fragment">Randomize up to 100 patients (1:1).</li>
-</ul>
+<div class="fragment">
+<p>Extremely rare autoimmune liver disease.</p>
+</div>
+<div class="fragment">
+<p>Phase 2 study, first look at efficacy.</p>
+</div>
+<div class="fragment">
+<p>Novel therapy vs active control.</p>
+</div>
+<div class="fragment">
+<p>Randomize up to 100 patients (1:1).</p>
+</div>
 </section>
 <section id="bayesian-joint-model" class="slide level2 nonincremental">
 <h2>Bayesian joint model</h2>
@@ -325,9 +337,8 @@ Will Landau
 \end{aligned}
 \]</span></p>
 </div>
-<ul>
-<li class="fragment"><span class="math inline">\(\color{orange}{\eta_i(t)}\)</span>: expected log bilirubin for patient <span class="math inline">\(i\)</span> at time <span class="math inline">\(t\)</span>.</li>
-</ul>
+<div class="fragment">
+<p><span class="math inline">\(\color{orange}{\eta_i(t)}\)</span>: expected log bilirubin for patient <span class="math inline">\(i\)</span> at time <span class="math inline">\(t\)</span>.</p>
 <div class="fragment">
 <h4 id="survival-endpoint-years-without-liver-transplant-or-death">Survival endpoint: years without liver transplant or death</h4>
 <p><span class="math display">\[
@@ -336,10 +347,13 @@ h_i(t) = h_0(t, \lambda) \exp \left (\color{orange}{\eta_i(t)} \alpha + d_i \col
 \end{aligned}
 \]</span></p>
 </div>
-<ul>
-<li class="fragment"><span class="math inline">\(d_i\)</span>: 1 for treatment, 0 for control.</li>
-<li class="fragment"><span class="math inline">\(\color{blue}{\theta}\)</span>: log hazard ratio of treatment vs control.</li>
-</ul>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(d_i\)</span>: 1 for treatment, 0 for control.</p>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(\color{blue}{\theta}\)</span>: log hazard ratio of treatment vs control.</p>
+</div>
 </section>
 <section id="decision-rules" class="slide level2 nonincremental">
 <h2>Decision rules</h2>
@@ -370,33 +384,49 @@ g(y) &lt; 0.4
 <center>
 <img src="./images/stethoscope.jpg" height="300px">
 </center>
-<ul>
-<li class="fragment">10-year accrual period.</li>
-<li class="fragment">Futility interim at <span class="math inline">\(n\)</span> events (liver transplant or death).</li>
-<li class="fragment"><strong>Goal: simulate to propose a suitable <span class="math inline">\(n\)</span></strong>.</li>
-</ul>
+<div class="fragment">
+<p>10-year accrual period.</p>
+</div>
+<div class="fragment">
+<p>Futility interim at <span class="math inline">\(n\)</span> events (liver transplant or death).</p>
+</div>
+<div class="fragment">
+<p><strong>Goal: simulate to propose a suitable <span class="math inline">\(n\)</span></strong>.</p>
+</div>
 </section>
 <section id="simulate-futility" class="slide level2">
 <h2>Simulate futility</h2>
 
-<img data-src="./images/bayes.png" class="r-stretch"><ul>
-<li class="fragment">Simulate 10000 futile trials for <span class="math inline">\(n = 40, 50, 60, 70\)</span>.</li>
-<li class="fragment">A fixed hazard ratio of 1 would be unrealistic.</li>
-<li class="fragment">Instead, draw from a distribution that captures futility.</li>
-<li class="fragment">Use the posterior distribution from a historical trial.</li>
-</ul>
+<img data-src="./images/bayes.png" class="r-stretch"><div class="fragment">
+<p>Simulate 10000 futile trials for <span class="math inline">\(n = 40, 50, 60, 70\)</span>.</p>
+</div>
+<div class="fragment">
+<p>A fixed hazard ratio of 1 would be unrealistic.</p>
+</div>
+<div class="fragment">
+<p>Instead, draw from a distribution that captures futility.</p>
+</div>
+<div class="fragment">
+<p>Use the posterior distribution from a historical trial.</p>
+</div>
 </section>
 <section id="historical-futility-data" class="slide level2">
 <h2>Historical futility data</h2>
 <center>
 <img src="./images/data.jpg" height="300px">
 </center>
-<ul>
-<li class="fragment">Datasets <code>pbc</code> and <code>pbcseq</code> from the <code>survival</code> package.</li>
-<li class="fragment">Indication: primary biliary cholangitis (PBC).</li>
-<li class="fragment">Mayo Clinic trial of D-penicillamine vs placebo.</li>
-<li class="fragment">D-penicillamine did not improve survival.</li>
-</ul>
+<div class="fragment">
+<p>Datasets <code>pbc</code> and <code>pbcseq</code> from the <code>survival</code> package.</p>
+</div>
+<div class="fragment">
+<p>Indication: primary biliary cholangitis (PBC).</p>
+</div>
+<div class="fragment">
+<p>Mayo Clinic trial of D-penicillamine vs placebo.</p>
+</div>
+<div class="fragment">
+<p>D-penicillamine did not improve survival.</p>
+</div>
 </section>
 <section id="estimated-hazard-ratio" class="slide level2">
 <h2>Estimated hazard ratio</h2>
@@ -485,16 +515,12 @@ g(y) &lt; 0.4
 </section>
 <section id="scripted-simulation" class="slide level2">
 <h2>Scripted simulation</h2>
-<ul>
-<li>Step 1: draw historical hazard ratios.</li>
-</ul>
+<p>Step 1: draw historical hazard ratios.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>hazard_ratio <span class="ot">&lt;-</span> <span class="fu">draw_hazard_ratios</span>(<span class="dv">10000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
-<ul>
-<li>Step 2: run simulations.</li>
-</ul>
+<p>Step 2: run simulations.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>results <span class="ot">&lt;-</span> hazard_ratio <span class="sc">|&gt;</span></span>
 <span id="cb4-2"><a href=""></a>  <span class="fu">expand_grid</span>(<span class="at">events =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">70</span>)) <span class="sc">|&gt;</span></span>
@@ -545,11 +571,15 @@ g(y) &lt; 0.4
 <center>
 <img src="./images/graph-final.png" height="300px">
 </center>
-<ul>
-<li class="fragment">Pipeline: a formal group of tasks.</li>
-<li class="fragment">Each task declares a command, dependencies, and output.</li>
-<li class="fragment">A task cannot eventually depend on itself.</li>
-</ul>
+<div class="fragment">
+<p>Pipeline: a formal group of tasks.</p>
+</div>
+<div class="fragment">
+<p>Each task declares a command, dependencies, and output.</p>
+</div>
+<div class="fragment">
+<p>A task cannot eventually depend on itself.</p>
+</div>
 </section>
 <section id="pipeline-tools" class="slide level2">
 <h2>Pipeline tools</h2>
@@ -566,12 +596,18 @@ g(y) &lt; 0.4
 <center>
 <img src="./images/logo-tweet.png" height="300px">
 </center>
-<ul>
-<li class="fragment">Retains the comfort of your local R session.</li>
-<li class="fragment">Declares dependencies implicitly.</li>
-<li class="fragment">Integrates with Quarto.</li>
-<li class="fragment">Runs distributed computing.</li>
-</ul>
+<div class="fragment">
+<p>Retains the comfort of your local R session.</p>
+</div>
+<div class="fragment">
+<p>Declares dependencies implicitly.</p>
+</div>
+<div class="fragment">
+<p>Integrates with Quarto.</p>
+</div>
+<div class="fragment">
+<p>Runs distributed computing.</p>
+</div>
 </section></section>
 <section>
 <section id="example-pipeline" class="title-slide slide level1 center">
@@ -590,10 +626,12 @@ g(y) &lt; 0.4
 <span id="cb6-6"><a href=""></a><span class="co">#&gt; ├── trial.R</span></span>
 <span id="cb6-7"><a href=""></a><span class="co">#&gt; └── utils.R</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<ul>
-<li class="fragment"><code>R/</code> scripts contain functions.</li>
-<li class="fragment"><code>_targets.R</code> defines the pipeline.</li>
-</ul>
+<div class="fragment">
+<p><code>R/</code> scripts contain functions.</p>
+</div>
+<div class="fragment">
+<p><code>_targets.R</code> defines the pipeline.</p>
+</div>
 </section>
 <section id="define-the-pipeline-in-_targets.r" class="slide level2">
 <h2>Define the pipeline in _targets.R</h2>
@@ -831,21 +869,178 @@ g(y) &lt; 0.4
 <center>
 <img src="./images/graph-uptodate.png">
 </center>
-</section></section>
-<section>
-<section id="recap" class="title-slide slide level1 center">
-<h1>Recap</h1>
-
 </section>
 <section id="conclusions" class="slide level2">
 <h2>Conclusions</h2>
 <center>
 <img src="./images/plot-large-font.png" height="400px">
 </center>
-<ul>
-<li class="fragment">Interim at 40 events looks promising.</li>
-<li class="fragment">Need to simulate full design with interims and final analysis.</li>
-</ul>
+<div class="fragment">
+<p>Interim at 40 events looks promising.</p>
+</div>
+<div class="fragment">
+<p>Need to simulate full design with interims and final analysis</p>
+</div>
+</section></section>
+<section>
+<section id="example-pipeline-bayesian-model-validation" class="title-slide slide level1 center">
+<h1>Example pipeline: Bayesian model validation</h1>
+
+</section>
+<section id="bayesian-mmrm" class="slide level2">
+<h2>Bayesian MMRM</h2>
+
+<img data-src="./images/fev.png" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment">
+<p>MMRM = mixed model for repeated measures.</p>
+</div>
+<div class="fragment">
+<p>Longitudinal data with continuous outcomes.</p>
+</div>
+<div class="fragment">
+<p>Bayesian MMRMs: phase 2 neurology, pulmonology, etc.</p>
+</div>
+</section>
+<section id="implementation" class="slide level2">
+<h2>Implementation</h2>
+
+<img data-src="./images/brms.mmrm.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="computational-demands-of-stanhmc" class="slide level2">
+<h2>Computational demands of Stan/HMC</h2>
+
+<img data-src="./images/hmc.png" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment">
+<p>HMC = Hamiltonian Monte Carlo.</p>
+</div>
+<div class="fragment">
+<p>Physics simulation samples from the posterior distribution.</p>
+</div>
+</section>
+<section id="modeling-scenarios" class="slide level2">
+<h2>Modeling scenarios</h2>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbf{y}_1, \ldots, \mathbf{y}_n \stackrel{\text{ind}}{\sim} \text{MVN}(X_n\mathbf{\beta}, {\color{blue} \Sigma})
+\end{aligned}
+\]</span></p>
+<ol type="1">
+<li>Subgroup analysis with unstructured covariance <span class="math inline">\({\color{blue} \Sigma}\)</span>.</li>
+<li>Unstructured <span class="math inline">\({\color{blue} \Sigma}\)</span>.</li>
+<li>Autoregressive moving average <span class="math inline">\({\color{blue} \Sigma}\)</span>.</li>
+<li>Autoregressive <span class="math inline">\({\color{blue} \Sigma}\)</span>.</li>
+<li>Moving average <span class="math inline">\({\color{blue} \Sigma}\)</span>.</li>
+<li>Uncorrelated residuals.</li>
+</ol>
+</section>
+<section id="validation" class="slide level2" style="font-size: 90%">
+<h2>Validation</h2>
+
+<img data-src="./images/bayes.png" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment">
+<p>Simulation-based calibration (SBC) checking. (<a href="https://projecteuclid.org/journals/bayesian-analysis/volume--1/issue--1/Simulation-Based-Calibration-Checking-for-Bayesian-Computation--The-Choice/10.1214/23-BA1404.full">Modrák et al.&nbsp;(2023)</a>)</p>
+</div>
+<div class="fragment">
+<p><br></p>
+<p>Problem: easy to simulate from prior, hard to model posterior.</p>
+</div>
+<div class="fragment">
+<p><br></p>
+<p>Solution: simulation where prior and posterior should agree.</p>
+</div>
+</section>
+<section id="repeat-thousands-of-times" class="slide level2" style="font-size: 85%">
+<h2>Repeat thousands of times</h2>
+<ol type="1">
+<li class="fragment">Draw a set of parameters from the prior.</li>
+</ol>
+<div class="fragment">
+<p><span class="math display">\[
+\begin{aligned}
+\theta^{\text{sim}} &amp;\sim p(\theta)
+\end{aligned}
+\]</span></p>
+</div>
+<ol start="2" type="1">
+<li class="fragment">Draw a dataset given parameters from (1).</li>
+</ol>
+<div class="fragment">
+<p><span class="math display">\[
+\begin{aligned}
+y^{\text{sim}} &amp;\sim p(y | \theta^{\text{sim}})
+\end{aligned}
+\]</span></p>
+</div>
+<ol start="3" type="1">
+<li class="fragment">Draw parameter samples from the posterior.</li>
+</ol>
+<div class="fragment">
+<p><span class="math display">\[
+\begin{aligned}
+\theta^{(1)}, \ldots, \theta^{(M)} &amp;\sim p(\theta | y^{\text{sim}})
+\end{aligned}
+\]</span></p>
+</div>
+</section>
+<section id="why-sbc-works" class="slide level2" style="font-size: 80%">
+<h2>Why SBC works</h2>
+<p><br></p>
+<p>Equivalent to integrating out <span class="math inline">\(\theta^{\text{sim}}\)</span> and <span class="math inline">\(y^{\text{sim}}\)</span> to get the prior back:</p>
+<p><br></p>
+<p><span class="math display">\[
+p(\theta) = \int \int p(\theta | y^{\text{sim}}) p(y^{\text{sim}} | \theta^{\text{sim}}) p(\theta^{\text{sim}}) d \theta^{\text{sim}} d y^{\text{sim}}
+\]</span></p>
+<p><br></p>
+<div class="fragment">
+<p>Use ranks <span class="math inline">\(\sum_{m = 1}^M I \left [ \theta^{(m)}_i &lt; \theta^{\text{sim}}_i
+\right ]\)</span> to check that the posterior and prior agree.</p>
+</div>
+<div class="fragment">
+<p><br></p>
+<p>Ranks should be uniformly distributed.</p>
+</div>
+</section>
+<section id="branching-with-tarchetypes" class="slide level2">
+<h2>Branching with tarchetypes</h2>
+<div style="font-size: 0.9em;">
+<div class="sourceCode" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a><span class="fu">tar_map</span>( <span class="co"># Static branching over scenarios</span></span>
+<span id="cb27-2"><a href=""></a>  <span class="at">values =</span> scenarios,</span>
+<span id="cb27-3"><a href=""></a>  </span>
+<span id="cb27-4"><a href=""></a>  <span class="fu">tar_target</span>(</span>
+<span id="cb27-5"><a href=""></a>    <span class="at">name =</span> prior,</span>
+<span id="cb27-6"><a href=""></a>    <span class="at">command =</span> <span class="fu">setup_prior</span>(scenario)</span>
+<span id="cb27-7"><a href=""></a>  ),</span>
+<span id="cb27-8"><a href=""></a>  </span>
+<span id="cb27-9"><a href=""></a>  <span class="fu">tar_rep</span>( <span class="co"># Dynamic branching for simulations</span></span>
+<span id="cb27-10"><a href=""></a>    <span class="at">name =</span> ranks,</span>
+<span id="cb27-11"><a href=""></a>    <span class="at">command =</span> <span class="fu">run_simulation</span>(scenario, prior),</span>
+<span id="cb27-12"><a href=""></a>    <span class="at">batches =</span> <span class="dv">1000</span>,</span>
+<span id="cb27-13"><a href=""></a>    <span class="at">reps =</span> <span class="dv">1</span></span>
+<span id="cb27-14"><a href=""></a>  )</span>
+<span id="cb27-15"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="auto-scaled-distributed-computing" class="slide level2">
+<h2>Auto-scaled distributed computing</h2>
+
+<img data-src="./images/parallel1.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="auto-scaled-distributed-computing-1" class="slide level2">
+<h2>Auto-scaled distributed computing</h2>
+
+<img data-src="./images/parallel2.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="auto-scaled-distributed-computing-2" class="slide level2">
+<h2>Auto-scaled distributed computing</h2>
+
+<img data-src="./images/parallel3.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="auto-scaled-distributed-computing-3" class="slide level2">
+<h2>Auto-scaled distributed computing</h2>
+
+<img data-src="./images/parallel4.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="validation-results" class="slide level2">
+<h2>Validation results</h2>
+
+<img data-src="./images/ranks.png" class="quarto-figure quarto-figure-center r-stretch"><p>SBC ranks are roughly uniform, as expected.</p>
+</section></section>
+<section>
+<section id="recap" class="title-slide slide level1 center">
+<h1>Recap</h1>
+
 </section>
 <section id="benefits-of-pipeline-tools" class="slide level2">
 <h2>Benefits of pipeline tools</h2>
@@ -857,34 +1052,30 @@ g(y) &lt; 0.4
 </center>
 </div><div class="column" style="width:50%;">
 <center>
-<div style="font-size: 2em">
-<ul>
+<div style="font-size: 2em;">
+<ol type="1">
 <li class="fragment">Time savings</li>
 <li class="fragment">Reproducibility</li>
 <li class="fragment">Peace of mind</li>
-</ul>
+</ol>
 </div>
 </center>
 </div></div>
 </section>
-<section id="section-1" class="slide level2 nonincremental">
-<h2></h2>
-<div class="columns">
-<div class="column" style="width:33%;">
+<section id="links-to-resources" class="slide level2">
+<h2>Links to resources</h2>
+<ul>
+<li><a href="https://docs.ropensci.org/targets"><code>targets</code></a></li>
+<li><a href="https://github.com/wlandau/targets-example-liver">Clinical trial simulation pipeline</a></li>
+<li><a href="https://github.com/openpharma/brms.mmrm/tree/main/vignettes/sbc">Bayesian MMRM SBC pipeline</a></li>
+</ul>
+</section>
+<section id="link-to-slides" class="slide level2 nonincremental">
+<h2>Link to slides</h2>
+<p><a href="https://wlandau.github.io/useR2025" class="uri">https://wlandau.github.io/useR2025</a></p>
 <center>
-<span style="font-size: 1.5em; font-weight: bold;">targets</span> <a href="https://docs.ropensci.org/targets/"><img src="./images/qr-docs.png"></a>
+<a href="https://wlandau.github.io/useR2025"><img src="./images/qr-slides.png" height="500px"></a>
 </center>
-</div><div class="column" style="width:33%;">
-<center>
-<span style="font-size: 1.5em; font-weight: bold;">slides</span> <a href="https://wlandau.github.io/useR2025"><img src="./images/qr-slides.png"></a>
-</center>
-</div><div class="column" style="width:33%;">
-<center>
-<span style="font-size: 1.5em; font-weight: bold;">pipeline</span> <a href="https://github.com/wlandau/targets-example-liver"><img src="./images/qr-pipeline.png"></a>
-</center>
-</div></div>
-<p><br></p>
-<p>Special thanks to rOpenSci!</p>
 </section>
 <section id="sources" class="slide level2 tiny">
 <h2>Sources</h2>
@@ -892,8 +1083,10 @@ g(y) &lt; 0.4
 <li>Brilleman, S. L., M. J. Crowther, M. Moreno-Betancur, J. Buros Novik, and R. Wolfe. 2018. “Joint Longitudinal and Time-to-Event Models via Stan.” In StanCon 2018. https://github.com/stan-dev/stancon_talks/.</li>
 <li>Dickson, E. R., T. R. Fleming, R. H. Wiesner, W. P. Baldus, C. R. Fleming, J. Ludwig, and J. T. McCall. 1985. “Trial of Penicillamine in Advanced Primary Biliary Cirrhosis.” New England Journal of Medicine 312 (16): 1011–15. https://doi.org/10.1056/NEJM198504183121602.</li>
 <li>Goodrich, B., J. Gabry, I. Ali, and S. L. Brilleman. 2024. “rstanarm: Bayesian applied regression modeling via Stan.” https://mc-stan.org/rstanarm.</li>
+<li>Landau, W. M., Kunzmann, K., Sidi, Y., Stock, C. 2024. “brms.mmrm: Bayesian MMRMs using ‘brms’”. R package version 1.1.1, <a href="https://openpharma.github.io/brms.mmrm/" class="uri">https://openpharma.github.io/brms.mmrm/</a>.</li>
 <li>Landau, W. M. 2021. “The targets R package: a dynamic Make-like function-oriented pipeline toolkit for reproducibility and high-performance computing.” Journal of Open Source Software 6 (57): 2959. https://doi.org/10.21105/joss.02959.</li>
 <li>Lawrence, G. A., M. E. Boye, M. J. Crowther, J. G. Ibrahim, G. Quartey, S. Micallef, and F. Y. Bois. 2016. “Joint modeling of survival and longitudinal non-survival data: current methods and issues. Report of the DIA Bayesian joint modeling working group.” Statistics in Medicine 34 (14): 2181–95. https://doi.org/10.1002/sim.6141.</li>
+<li>Modrák, M., Moon, A. H., Kim, S., Bürkner, P., Huurre, N., Faltejsková, K., Gelman, A., Vehtari, A. 2023. “Simulation-Based Calibration Checking for Bayesian Computation: The Choice of Test Quantities Shapes Sensitivity”. Bayesian Analysis. <a href="https://doi.org/10.1214/23-BA1404" class="uri">https://doi.org/10.1214/23-BA1404</a>.</li>
 <li>Therneau, T. M., and P. M. Grambsch. 2000. Modeling Survival Data: Extending the Cox Model. New York: Springer.</li>
 </ul>
 </section>
@@ -908,6 +1101,7 @@ g(y) &lt; 0.4
 <li><a href="https://unsplash.com/photos/white-printing-paper-with-numbers-Wpnoqo2plFA" class="uri">https://unsplash.com/photos/white-printing-paper-with-numbers-Wpnoqo2plFA</a></li>
 <li><a href="https://unsplash.com/photos/woman-in-brown-sweater-covering-her-face-with-her-hand-_sh9vkVbVgo" class="uri">https://unsplash.com/photos/woman-in-brown-sweater-covering-her-face-with-her-hand-_sh9vkVbVgo</a></li>
 <li><a href="https://unsplash.com/license" class="uri">https://unsplash.com/license</a></li>
+<li><code>images/hmc.png</code>: Prof.&nbsp;David Kahle, Baylor University.</li>
 </ul>
 
 </section></section>
