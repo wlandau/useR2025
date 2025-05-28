@@ -977,7 +977,7 @@ y^{\text{sim}} &amp;\sim p(y | \theta^{\text{sim}})
 <section id="why-sbc-works" class="slide level2" style="font-size: 80%">
 <h2>Why SBC works</h2>
 <p><br></p>
-<p>Equivalent to integrating out <span class="math inline">\(\theta^{\text{sim}}\)</span> and <span class="math inline">\(y^{\text{sim}}\)</span> to get the prior back:</p>
+<p>SBC is equivalent to integrating out <span class="math inline">\(\theta^{\text{sim}}\)</span> and <span class="math inline">\(y^{\text{sim}}\)</span> to recover the prior:</p>
 <p><br></p>
 <p><span class="math display">\[
 p(\theta) = \int \int p(\theta | y^{\text{sim}}) p(y^{\text{sim}} | \theta^{\text{sim}}) p(\theta^{\text{sim}}) d \theta^{\text{sim}} d y^{\text{sim}}

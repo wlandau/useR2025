@@ -882,7 +882,7 @@ $$
 
 <br>
 
-Equivalent to integrating out $\theta^{\text{sim}}$ and $y^{\text{sim}}$ to get the prior back:
+SBC is equivalent to integrating out $\theta^{\text{sim}}$ and $y^{\text{sim}}$ to recover the prior:
 
 :::
 
