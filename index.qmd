@@ -158,7 +158,6 @@ Randomize up to 100 patients (1:1).
 
 :::{.fragment}
 
-
 #### Longitudinal endpoint: log bilirubin
 
 $$
@@ -171,7 +170,7 @@ $$
 
 . . .
 
-$\color{orange}{\eta_i(t)}$: expected log bilirubin for patient $i$ at time $t$. 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $\color{orange}{\eta_i(t)}$: expected log bilirubin for patient $i$ at time $t$. 
 
 :::{.fragment}
 
@@ -187,11 +186,11 @@ $$
 
 . . .
 
-$d_i$: 1 for treatment, 0 for control.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $d_i$: 1 for treatment, 0 for control.
 
 . . .
 
-$\color{blue}{\theta}$: log hazard ratio of treatment vs control.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $\color{blue}{\theta}$: log hazard ratio of treatment vs control.
 
 ## Decision rules {.nonincremental}
 
@@ -379,8 +378,7 @@ results <- hazard_ratio |>
 
 :::{.fragment}
 
-
-* Step 3: plot results.
+Step 3: plot results.
 
 ```{r}
 plot_results(results)
@@ -442,7 +440,7 @@ A task cannot eventually depend on itself.
 <img src="./images/infographic.png" height = "300px">
 </center>
 
-* Examples: Make, Airflow, Nextflow, Prefect, and `targets`.
+Examples: Make, Airflow, Nextflow, Prefect, and `targets`.
 
 ## targets: a pipeline tool for R
 
