@@ -839,7 +839,7 @@ Problem: easy to simulate from prior, hard to model posterior.
 
 Solution: simulation where prior and posterior should agree. 
 
-## Repeat thousands of times {style="font-size: 85%"}
+## Repeat thousands of times: {style="font-size: 85%"}
 
 1. Draw a set of parameters from the prior.
 
