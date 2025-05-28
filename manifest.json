@@ -1,7 +1,7 @@
 {
   "version": 1,
   "locale": "en_US",
-  "platform": "4.4.0",
+  "platform": "4.5.0",
   "metadata": {
     "appmode": "static",
     "primary_rmd": null,
@@ -11,14 +11,14 @@
   },
   "packages": null,
   "files": {
-    "images/.DS_Store": {
-      "checksum": "3470e8b6d4041622f521a614f98c66db"
-    },
     "images/agenda.png": {
-      "checksum": "641aec95faad542603453e92e58f3ca8"
+      "checksum": "db835e8a68f33d9d443d888796ac4cbd"
     },
     "images/bayes.png": {
       "checksum": "2d656c18af1a7ef0a6b4074c916d8b9b"
+    },
+    "images/brms.mmrm.png": {
+      "checksum": "0a79caee08418ad84a544869834064a6"
     },
     "images/challenges.jpg": {
       "checksum": "877e289b313c3223efea2ac87ab367bf"
@@ -29,6 +29,9 @@
     "images/data.jpg": {
       "checksum": "0c02fa0a8f57a0efeb67cf5c1bbd6c7e"
     },
+    "images/fev.png": {
+      "checksum": "2d7aad7c068b1a0ec2699122fe054550"
+    },
     "images/goals.jpg": {
       "checksum": "ef3b5b322a9f1bba765ae0cb3700bb9a"
     },
@@ -36,7 +39,7 @@
       "checksum": "a5ef890ba5444215c7c1f1a94c7a7e85"
     },
     "images/graph-change-function.png": {
-      "checksum": "6fe1970e94743d5a912cd160a43ca201"
+      "checksum": "cd8a282fd085025c34bef6a921c48db0"
     },
     "images/graph-dispatched.png": {
       "checksum": "174aab747df4135e746ddcafd3d7fc4c"
@@ -45,7 +48,7 @@
       "checksum": "bd74489433822fcddd65643ec8e2678f"
     },
     "images/graph-functions.png": {
-      "checksum": "848cd1626c7faaab55e67a6c4c3439a4"
+      "checksum": "0ab3efae3c9428048825587265dee6d5"
     },
     "images/graph-outdated.png": {
       "checksum": "fd135a97a31f5dc4eba52de2d38670c9"
@@ -58,6 +61,9 @@
     },
     "images/hazard_ratio.png": {
       "checksum": "91106b267775dbae1fc48a8b34228541"
+    },
+    "images/hmc.png": {
+      "checksum": "476d4ea341e424c957569cf6c5f589c4"
     },
     "images/images.pptx": {
       "checksum": "2f5c689c176263ecee3fd8b45b64c7f3"
@@ -83,6 +89,18 @@
     "images/notebook-start.png": {
       "checksum": "4f3c6afc89194afe8f1cd984e7fce852"
     },
+    "images/parallel1.png": {
+      "checksum": "8855758fd4a1993e7a2a3f7b8922048a"
+    },
+    "images/parallel2.png": {
+      "checksum": "41ad5089e5c8ee0ffcb5477bead05783"
+    },
+    "images/parallel3.png": {
+      "checksum": "6adf1d22b926b16b31a6fcb9098d6634"
+    },
+    "images/parallel4.png": {
+      "checksum": "ca607494b13494fac8779b4fd8799e65"
+    },
     "images/plot-large-font.png": {
       "checksum": "b977d77727ec97f2a1bc508413faf42e"
     },
@@ -99,7 +117,7 @@
       "checksum": "254c6e16e8d1fe9ba00907e3de413146"
     },
     "images/qr-slides.png": {
-      "checksum": "0970df4cb58f2cf10a80f30349aea5be"
+      "checksum": "6ec358f73a706629c50ef437e9c62f58"
     },
     "images/quarto-source.png": {
       "checksum": "ba658ba107994d7f77ad1ec56ae1ac37"
@@ -109,6 +127,9 @@
     },
     "images/r.png": {
       "checksum": "c9835cd1c2bddc2134387498ecb75be4"
+    },
+    "images/ranks.png": {
+      "checksum": "74a289c9f5e9749170d0dd2f419a1528"
     },
     "images/responsibility.png": {
       "checksum": "77f2644daad867dfd091c4019b007b38"
@@ -146,6 +167,15 @@
     "index_files/libs/clipboard/clipboard.min.js": {
       "checksum": "15f52a1ee547f2bdd46e56747332ca2d"
     },
+    "index_files/libs/quarto-diagram/mermaid-init.js": {
+      "checksum": "35cf34474c6b3cb3e659633a985a71cd"
+    },
+    "index_files/libs/quarto-diagram/mermaid.css": {
+      "checksum": "0aeecd8a816e25e43a41943c6146c2b7"
+    },
+    "index_files/libs/quarto-diagram/mermaid.min.js": {
+      "checksum": "a7803a687b329c30674b2db40339a77e"
+    },
     "index_files/libs/quarto-html/anchor.min.js": {
       "checksum": "91bcf6cd1fd88fec3f109811e5fc3546"
     },
@@ -157,6 +187,9 @@
     },
     "index_files/libs/quarto-html/quarto-syntax-highlighting-07ba0ad10f5680c660e360ac31d2f3b6.css": {
       "checksum": "07ba0ad10f5680c660e360ac31d2f3b6"
+    },
+    "index_files/libs/quarto-html/quarto-syntax-highlighting-53f539a478d6ecd1be31ce9fd30fd81c.css": {
+      "checksum": "53f539a478d6ecd1be31ce9fd30fd81c"
     },
     "index_files/libs/quarto-html/quarto.js": {
       "checksum": "b2cce65711e74956eb7b7aa2f4d3943f"
@@ -248,6 +281,9 @@
     "index_files/libs/revealjs/dist/theme/quarto-27a844e7d43f0d31b27642e48490372a.css": {
       "checksum": "27a844e7d43f0d31b27642e48490372a"
     },
+    "index_files/libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css": {
+      "checksum": "f563837468303362081e247dddd440d0"
+    },
     "index_files/libs/revealjs/plugin/highlight/highlight.esm.js": {
       "checksum": "19a0f6f1a902d2ef9aaefa1e046b3b2e"
     },
@@ -324,7 +360,7 @@
       "checksum": "4f79b4a104bed30cd5b7b49d598bed88"
     },
     "index_files/libs/revealjs/plugin/quarto-support/support.js": {
-      "checksum": "5e0f36c9d7561064a39a970bd13d710d"
+      "checksum": "4403872730e278a9f00b5d3022de4369"
     },
     "index_files/libs/revealjs/plugin/reveal-menu/menu.css": {
       "checksum": "1b9988f08dfe354c44e134304b3df8af"
@@ -360,10 +396,10 @@
       "checksum": "9c28a4d1f1502771665328f6abb091c0"
     },
     "index.html": {
-      "checksum": "132915b1cca9e33800e160e4390f60b6"
+      "checksum": "5b8354043f09c96f91d43f618020998e"
     },
     "README.md": {
-      "checksum": "c927dafde9b3df1b0b022cb030114baa"
+      "checksum": "84dd996da2a81f4f57071f86c03f1101"
     },
     "style.css": {
       "checksum": "3f2b897807c27551f3653186bb799f67"
