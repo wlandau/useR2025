@@ -7,6 +7,8 @@ format:
      footer: "&copy; 2025 Eli Lilly and Company"
      view-distance: 100
      mobile-view-distance: 100
+extensions:
+  - jmbuhr/quarto-qrcode
 ---
 
 ##
@@ -999,12 +1001,10 @@ SBC ranks are roughly uniform, as expected.
 
 :::
 
-## Link to slides {.nonincremental}
-
-<https://wlandau.github.io/useR2025>
+## Slides: [wlandau.github.io/useR2025](https://wlandau.github.io/useR2025)
 
 <center>
-<a href="https://wlandau.github.io/useR2025"><img src="./images/qr-slides.png" height="500px"></a>
+{{< qrcode https://wlandau.github.io/useR2025 width=600 height=600 >}}
 </center>
 
 ## Sources {.tiny}
