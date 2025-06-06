@@ -1004,7 +1004,7 @@ SBC ranks are roughly uniform, as expected.
 ## Slides: [wlandau.github.io/useR2025](https://wlandau.github.io/useR2025)
 
 <center>
-{{< qrcode https://wlandau.github.io/useR2025 width=600 height=600 >}}
+{{< qrcode https://wlandau.github.io/useR2025 width=500 height=500 >}}
 </center>
 
 ## Sources {.tiny}
