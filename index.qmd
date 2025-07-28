@@ -51,23 +51,29 @@ knitr::opts_chunk$set(
 <h4>Will Landau</h4>
 </center>
 
-## Background
-
-* Training
-    * Iowa State University 2011-2016.
-    * Bayesian Statistics.
-* Career
-    * Eli Lilly and Company, 2016-present.
-    * Methods and tools for clinical trials.
-    * Author of the `targets` package.
-
-## Agenda
+## Overview {style="font-size: 1.1em"}
 
 <br>
 
-<center>
-<img src="./images/agenda.png">
-</center>
+Background: Bayesian Statistics in the life sciences
+
+. . .
+
+<br>
+
+Challenge: modeling and simulation
+
+. . .
+
+<br>
+
+Traditional workflows in R struggle to scale.
+
+. . .
+
+<br>
+
+Pipelines give you time, confidence, and peace of mind.
 
 # Clinical trial simulation
 
@@ -146,11 +152,11 @@ Extremely rare autoimmune liver disease.
 
 . . .
 
-Phase 2 study, first look at efficacy.
+Phase 2A study, first look at efficacy.
 
 . . .
 
-Novel therapy vs active control.
+Novel therapy vs standard of care.
 
 . . .
 
@@ -353,16 +359,15 @@ trial(hazard_ratio = 1.2, events = 50)
 #> 1     50   0.0324       72  7.35
 ```
 
-# Workflow pitfalls
 
-## Scripted simulation 
+## All together, informally
 
 :::{.nonincremental}
 
 Step 1: draw historical hazard ratios.
 
 ```{r}
-hazard_ratio <- draw_hazard_ratios(10000)
+hazard_ratios <- draw_hazard_ratios(10000)
 ```
 
 :::{.fragment}
@@ -370,7 +375,7 @@ hazard_ratio <- draw_hazard_ratios(10000)
 Step 2: run simulations.
 
 ```{r}
-results <- hazard_ratio |>
+results <- hazard_ratios |>
   expand_grid(events = c(40, 50, 60, 70)) |>
   pmap(trial) |>
   list_rbind()
@@ -389,6 +394,8 @@ plot_results(results)
 :::
 
 :::
+
+# Workflow pitfalls
 
 ## Numbered notebooks?
 
@@ -424,11 +431,16 @@ plot_results(results)
 
 .  . .
 
-Pipeline: a formal group of tasks.
+A pipeline is a formal group of tasks.
 
 . . .
 
-Each task declares a command, dependencies, and output.
+Each task has dependencies, a command, and output.
+
+. . .
+
+
+A task can only modify its own output.
 
 . . .
 
@@ -456,7 +468,7 @@ Retains the comfort of your local R session.
 
 . . .
 
-Declares dependencies implicitly.
+Focuses on your functions, not your scripts.
 
 . . .
 
@@ -466,7 +478,7 @@ Integrates with Quarto.
 
 Runs distributed computing.
 
-# Example pipeline
+# Trial simulation pipeline
 
 ## Project-oriented workflow
 
@@ -576,7 +588,7 @@ tarchetypes::tar_quarto(
 <img src="./images/quarto-source.png" height="550px">
 </center>
 
-## Connections among targets
+## Graph visualization
 
 ```{r}
 tar_visnetwork(targets_only = TRUE)
@@ -588,15 +600,18 @@ tar_visnetwork(targets_only = TRUE)
 <img src="./images/graph-outdated.png">
 </center>
 
-## Connections to functions
-
-```{r}
-tar_visnetwork()
-```
+## Implicit dependencies
 
 <center>
-<img src="./images/graph-functions.png">
+<img src="./images/graph-dependencies.png">
 </center>
+
+```{r}
+tar_target(
+  name = plot,
+  command = plot_results(trials)
+)
+```
 
 # Running the pipeline
 
@@ -854,7 +869,7 @@ $$
 $$
 :::
 
-2. Draw a dataset given parameters from (1).
+2. Draw a dataset given the parameters.
 
 :::{.fragment}
 
@@ -878,7 +893,7 @@ $$
 
 :::
 
-## Why SBC works {style="font-size: 80%"}
+## Why this simulation validates the model {style="font-size: 80%"}
 
 ::: {.nonincremental}
 
@@ -888,10 +903,16 @@ SBC is equivalent to integrating out $\theta^{\text{sim}}$ and $y^{\text{sim}}$ 
 
 :::
 
-<br>
+. . .
 
 $$
-p(\theta) = \int \int p(\theta | y^{\text{sim}}) p(y^{\text{sim}} | \theta^{\text{sim}}) p(\theta^{\text{sim}}) d \theta^{\text{sim}} d y^{\text{sim}}
+p(\theta | \theta^{\text{sim}}) = \int \color{blue}{p(\theta | y^{\text{sim}})} p(y^{\text{sim}} | \theta^{\text{sim}})  d y^{\text{sim}}
+$$
+
+. . . 
+
+$$
+p(\theta) = \int p(\theta | \theta^{\text{sim}}) d \theta^{\text{sim}}
 $$
 
 <br>

@@ -221,28 +221,22 @@ Will Landau
 </h4>
 </center>
 </section>
-<section id="background" class="slide level2">
-<h2>Background</h2>
-<ul>
-<li class="fragment">Training
-<ul>
-<li class="fragment">Iowa State University 2011-2016.</li>
-<li class="fragment">Bayesian Statistics.</li>
-</ul></li>
-<li class="fragment">Career
-<ul>
-<li class="fragment">Eli Lilly and Company, 2016-present.</li>
-<li class="fragment">Methods and tools for clinical trials.</li>
-<li class="fragment">Author of the <code>targets</code> package.</li>
-</ul></li>
-</ul>
-</section>
-<section id="agenda" class="slide level2">
-<h2>Agenda</h2>
+<section id="overview" class="slide level2" style="font-size: 1.1em">
+<h2>Overview</h2>
 <p><br></p>
-<center>
-<img src="./images/agenda.png">
-</center>
+<p>Background: Bayesian Statistics in the life sciences</p>
+<div class="fragment">
+<p><br></p>
+<p>Challenge: modeling and simulation</p>
+</div>
+<div class="fragment">
+<p><br></p>
+<p>Traditional workflows in R struggle to scale.</p>
+</div>
+<div class="fragment">
+<p><br></p>
+<p>Pipelines give you time, confidence, and peace of mind.</p>
+</div>
 </section>
 <section>
 <section id="clinical-trial-simulation" class="title-slide slide level1 center">
@@ -319,10 +313,10 @@ Will Landau
 <p>Extremely rare autoimmune liver disease.</p>
 </div>
 <div class="fragment">
-<p>Phase 2 study, first look at efficacy.</p>
+<p>Phase 2A study, first look at efficacy.</p>
 </div>
 <div class="fragment">
-<p>Novel therapy vs active control.</p>
+<p>Novel therapy vs standard of care.</p>
 </div>
 <div class="fragment">
 <p>Randomize up to 100 patients (1:1).</p>
@@ -508,22 +502,17 @@ g(y) &lt; 0.4
 <span id="cb2-4"><a href=""></a><span class="co">#&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;</span></span>
 <span id="cb2-5"><a href=""></a><span class="co">#&gt; 1     50   0.0324       72  7.35</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section></section>
-<section>
-<section id="workflow-pitfalls" class="title-slide slide level1 center">
-<h1>Workflow pitfalls</h1>
-
 </section>
-<section id="scripted-simulation" class="slide level2">
-<h2>Scripted simulation</h2>
+<section id="all-together-informally" class="slide level2">
+<h2>All together, informally</h2>
 <p>Step 1: draw historical hazard ratios.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>hazard_ratio <span class="ot">&lt;-</span> <span class="fu">draw_hazard_ratios</span>(<span class="dv">10000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>hazard_ratios <span class="ot">&lt;-</span> <span class="fu">draw_hazard_ratios</span>(<span class="dv">10000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <p>Step 2: run simulations.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>results <span class="ot">&lt;-</span> hazard_ratio <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>results <span class="ot">&lt;-</span> hazard_ratios <span class="sc">|&gt;</span></span>
 <span id="cb4-2"><a href=""></a>  <span class="fu">expand_grid</span>(<span class="at">events =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">70</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb4-3"><a href=""></a>  <span class="fu">pmap</span>(trial) <span class="sc">|&gt;</span></span>
 <span id="cb4-4"><a href=""></a>  <span class="fu">list_rbind</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -535,6 +524,11 @@ g(y) &lt; 0.4
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="fu">plot_results</span>(results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
+</section></section>
+<section>
+<section id="workflow-pitfalls" class="title-slide slide level1 center">
+<h1>Workflow pitfalls</h1>
+
 </section>
 <section id="numbered-notebooks" class="slide level2">
 <h2>Numbered notebooks?</h2>
@@ -571,10 +565,13 @@ g(y) &lt; 0.4
 <img src="./images/graph-final.png" height="300px">
 </center>
 <div class="fragment">
-<p>Pipeline: a formal group of tasks.</p>
+<p>A pipeline is a formal group of tasks.</p>
 </div>
 <div class="fragment">
-<p>Each task declares a command, dependencies, and output.</p>
+<p>Each task has dependencies, a command, and output.</p>
+</div>
+<div class="fragment">
+<p>A task can only modify its own output.</p>
 </div>
 <div class="fragment">
 <p>A task cannot eventually depend on itself.</p>
@@ -597,7 +594,7 @@ g(y) &lt; 0.4
 <p>Retains the comfort of your local R session.</p>
 </div>
 <div class="fragment">
-<p>Declares dependencies implicitly.</p>
+<p>Focuses on your functions, not your scripts.</p>
 </div>
 <div class="fragment">
 <p>Integrates with Quarto.</p>
@@ -607,8 +604,8 @@ g(y) &lt; 0.4
 </div>
 </section></section>
 <section>
-<section id="example-pipeline" class="title-slide slide level1 center">
-<h1>Example pipeline</h1>
+<section id="trial-simulation-pipeline" class="title-slide slide level1 center">
+<h1>Trial simulation pipeline</h1>
 
 </section>
 <section id="project-oriented-workflow" class="slide level2">
@@ -711,8 +708,8 @@ g(y) &lt; 0.4
 <img src="./images/quarto-source.png" height="550px">
 </center>
 </section>
-<section id="connections-among-targets" class="slide level2">
-<h2>Connections among targets</h2>
+<section id="graph-visualization" class="slide level2">
+<h2>Graph visualization</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a><span class="fu">tar_visnetwork</span>(<span class="at">targets_only =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -721,14 +718,17 @@ g(y) &lt; 0.4
 <img src="./images/graph-outdated.png">
 </center>
 </section>
-<section id="connections-to-functions" class="slide level2">
-<h2>Connections to functions</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="fu">tar_visnetwork</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<section id="implicit-dependencies" class="slide level2">
+<h2>Implicit dependencies</h2>
 <center>
-<img src="./images/graph-functions.png">
+<img src="./images/graph-dependencies.png">
 </center>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="fu">tar_target</span>(</span>
+<span id="cb15-2"><a href=""></a>  <span class="at">name =</span> plot,</span>
+<span id="cb15-3"><a href=""></a>  <span class="at">command =</span> <span class="fu">plot_results</span>(trials)</span>
+<span id="cb15-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section></section>
 <section>
 <section id="running-the-pipeline" class="title-slide slide level1 center">
@@ -955,7 +955,7 @@ g(y) &lt; 0.4
 \]</span></p>
 </div>
 <ol start="2" type="1">
-<li class="fragment">Draw a dataset given parameters from (1).</li>
+<li class="fragment">Draw a dataset given the parameters.</li>
 </ol>
 <div class="fragment">
 <p><span class="math display">\[
@@ -975,15 +975,21 @@ y^{\text{sim}} &amp;\sim p(y | \theta^{\text{sim}})
 \]</span></p>
 </div>
 </section>
-<section id="why-sbc-works" class="slide level2" style="font-size: 80%">
-<h2>Why SBC works</h2>
+<section id="why-this-simulation-validates-the-model" class="slide level2" style="font-size: 80%">
+<h2>Why this simulation validates the model</h2>
 <p><br></p>
 <p>SBC is equivalent to integrating out <span class="math inline">\(\theta^{\text{sim}}\)</span> and <span class="math inline">\(y^{\text{sim}}\)</span> to recover the prior:</p>
-<p><br></p>
+<div class="fragment">
 <p><span class="math display">\[
-p(\theta) = \int \int p(\theta | y^{\text{sim}}) p(y^{\text{sim}} | \theta^{\text{sim}}) p(\theta^{\text{sim}}) d \theta^{\text{sim}} d y^{\text{sim}}
+p(\theta | \theta^{\text{sim}}) = \int \color{blue}{p(\theta | y^{\text{sim}})} p(y^{\text{sim}} | \theta^{\text{sim}})  d y^{\text{sim}}
+\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[
+p(\theta) = \int p(\theta | \theta^{\text{sim}}) d \theta^{\text{sim}}
 \]</span></p>
 <p><br></p>
+</div>
 <div class="fragment">
 <p>Use ranks <span class="math inline">\(\sum_{m = 1}^M I \left [ \theta^{(m)}_i &lt; \theta^{\text{sim}}_i
 \right ]\)</span> to check that the posterior and prior agree.</p>
