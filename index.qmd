@@ -41,6 +41,9 @@ knitr::opts_chunk$set(
   line-height: 1.5em;
   vertical-align: top;
 }
+pre code {
+  overflow-x: hidden !important;
+}
 </style>
 
 <center>
@@ -395,7 +398,67 @@ plot_results(results)
 
 :::
 
-# Workflow pitfalls
+# Workflow challenges
+
+## Implementing the joint model
+
+```{r}
+rstanarm::stan_jm(
+  formulaLong = log_bilirubin ~
+    study_arm + albumin + years_measured +
+    (1 | patient_id),
+  formulaEvent = Surv(years_survived, event) ~
+    study_arm,
+  time_var = "years_measured",
+  dataLong = data_longitudinal,
+  dataEvent = data_survival
+)
+```
+
+## Backend: Stan
+
+<br>
+
+![](./images/stan.png){fig-align="center"}
+
+## Computational demands of Stan/HMC
+
+![](./images/hmc.png){fig-align="center"}
+
+. . .
+
+HMC = Hamiltonian Monte Carlo.
+
+. . .
+
+Physics simulation samples from the posterior distribution.
+
+
+## Computation time
+
+```{r}
+system.time(draw_hazard_ratios())
+#>    user  system elapsed 
+#> 658.306   2.424 177.468 
+```
+
+<br>
+
+. . . 
+
+```{r}
+system.time(trial(1, events = 70))
+#>    user  system elapsed 
+#> 115.568   0.726  32.261 
+```
+
+. . . 
+
+<br>
+
+<span style="font-weight: bold; color: brown; font-size:1.25em">
+32 seconds x 10000 reps x 4 scenarios $>$ 2 weeks!
+</span>
 
 ## Numbered notebooks?
 
@@ -525,6 +588,7 @@ library(crew.cluster)
 
 controller <- crew_controller_sge(
   workers = 500,
+  cores = 4,
   seconds_idle = 120
 )
 
@@ -625,6 +689,30 @@ tar_make(as_job = TRUE)
 <img src="./images/workbench.png">
 </center>
 
+## Auto-scaled distributed computing
+
+![](./images/Slide10.png){fig-align="center"}
+
+## Auto-scaled distributed computing
+
+![](./images/Slide11.png){fig-align="center"}
+
+## Auto-scaled distributed computing
+
+![](./images/Slide12.png){fig-align="center"}
+
+## Auto-scaled distributed computing
+
+![](./images/Slide13.png){fig-align="center"}
+
+## Auto-scaled distributed computing
+
+![](./images/Slide14.png){fig-align="center"}
+
+## Auto-scaled distributed computing
+
+![](./images/Slide15.png){fig-align="center"}
+
 ## Track progress
 
 <br>
@@ -648,6 +736,20 @@ tar_visnetwork(targets_only = TRUE)
 <center>
 <img src="./images/graph-dispatched.png">
 </center>
+
+## Monitor workers
+
+```{r}
+library(crew.cluster)
+monitor <- crew_monitor_sge()
+
+monitor$jobs()[, c(1, 3, 4, 9)]
+#> # A tibble: 2 × 4
+#>   job_number name   state slots
+#>   <chr>      <chr>  <chr> <chr>
+#> 1 131853812  crew-… r     4    
+#> 2 131853813  crew-… r     4
+```
 
 ## Simulation results
 
@@ -781,204 +883,6 @@ Interim at 40 events looks promising.
 . . .
 
 Need to simulate full design with interims and final analysis
-
-# Example pipeline: Bayesian model validation
-
-## Bayesian MMRM
-
-![](./images/fev.png){fig-align="center"}
-
-. . .
-
-MMRM = mixed model for repeated measures.
-
-. . .
-
-Longitudinal data with continuous outcomes.
-
-. . .
-
-Bayesian MMRMs: phase 2 neurology, pulmonology, etc.
-
-## Implementation
-
-![](./images/brms.mmrm.png){fig-align="center"}
-
-## Computational demands of Stan/HMC
-
-![](./images/hmc.png){fig-align="center"}
-
-
-. . .
-
-HMC = Hamiltonian Monte Carlo.
-
-. . .
-
-Physics simulation samples from the posterior distribution.
-
-## Modeling scenarios
-
-$$
-\begin{aligned}
-\mathbf{y}_1, \ldots, \mathbf{y}_n \stackrel{\text{ind}}{\sim} \text{MVN}(X_n\mathbf{\beta}, {\color{blue} \Sigma})
-\end{aligned}
-$$
-
-::: {.nonincremental}
-
-1. Subgroup analysis with unstructured covariance ${\color{blue} \Sigma}$.
-2. Unstructured ${\color{blue} \Sigma}$.
-3. Autoregressive moving average ${\color{blue} \Sigma}$.
-4. Autoregressive ${\color{blue} \Sigma}$.
-5. Moving average ${\color{blue} \Sigma}$.
-6. Uncorrelated residuals.
-
-:::
-
-## Validation {style="font-size: 90%"}
-
-![](./images/bayes.png){fig-align="center"}
-
-. . . 
-
-Simulation-based calibration (SBC) checking. ([Modrák et al. (2023)](https://projecteuclid.org/journals/bayesian-analysis/volume--1/issue--1/Simulation-Based-Calibration-Checking-for-Bayesian-Computation--The-Choice/10.1214/23-BA1404.full))
-
-. . .
-
-<br>
-
-Problem: easy to simulate from prior, hard to model posterior.
-
-. . .
-
-<br>
-
-Solution: simulation where prior and posterior should agree. 
-
-## Repeat thousands of times: {style="font-size: 85%"}
-
-1. Draw a set of parameters from the prior.
-
-:::{.fragment}
-
-$$
-\begin{aligned}
-\theta^{\text{sim}} &\sim p(\theta)
-\end{aligned}
-$$
-:::
-
-2. Draw a dataset given the parameters.
-
-:::{.fragment}
-
-$$
-\begin{aligned}
-y^{\text{sim}} &\sim p(y | \theta^{\text{sim}})
-\end{aligned}
-$$
-
-:::
-
-3. Draw parameter samples from the posterior.
-
-:::{.fragment}
-
-$$
-\begin{aligned}
-\theta^{(1)}, \ldots, \theta^{(M)} &\sim p(\theta | y^{\text{sim}})
-\end{aligned}
-$$
-
-:::
-
-## Why this simulation validates the model {style="font-size: 80%"}
-
-::: {.nonincremental}
-
-<br>
-
-SBC is equivalent to integrating out $\theta^{\text{sim}}$ and $y^{\text{sim}}$ to recover the prior:
-
-:::
-
-. . .
-
-$$
-p(\theta | \theta^{\text{sim}}) = \int \color{blue}{p(\theta | y^{\text{sim}})} p(y^{\text{sim}} | \theta^{\text{sim}})  d y^{\text{sim}}
-$$
-
-. . . 
-
-$$
-p(\theta) = \int p(\theta | \theta^{\text{sim}}) d \theta^{\text{sim}}
-$$
-
-<br>
-
-. . .
-
-Use ranks $\sum_{m = 1}^M I \left [ \theta^{(m)}_i < \theta^{\text{sim}}_i
-\right ]$ to check that the posterior and prior agree.
-
-. . .
-
-<br>
-
-Ranks should be uniformly distributed.
-
-## Branching with tarchetypes
-
-::: {style="font-size: 0.9em;"}
-
-```r
-tar_map( # Static branching over scenarios
-  values = scenarios,
-  
-  tar_target(
-    name = prior,
-    command = setup_prior(scenario)
-  ),
-  
-  tar_rep( # Dynamic branching for simulations
-    name = ranks,
-    command = run_simulation(scenario, prior),
-    batches = 1000,
-    reps = 1
-  )
-)
-```
-
-:::
-
-
-## Auto-scaled distributed computing
-
-![](./images/parallel1.png){fig-align="center"}
-
-## Auto-scaled distributed computing
-
-![](./images/parallel2.png){fig-align="center"}
-
-## Auto-scaled distributed computing
-
-![](./images/parallel3.png){fig-align="center"}
-
-## Auto-scaled distributed computing
-
-![](./images/parallel4.png){fig-align="center"}
-
-
-## Validation results
-
-![](./images/ranks.png){fig-align="center"}
-
-::: {.nonincremental}
-
-SBC ranks are roughly uniform, as expected.
-
-:::
 
 # Recap
 

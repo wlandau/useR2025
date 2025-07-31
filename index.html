@@ -209,6 +209,9 @@
   line-height: 1.5em;
   vertical-align: top;
 }
+pre code {
+  overflow-x: hidden !important;
+}
 </style>
 <center>
 <br>
@@ -526,9 +529,59 @@ g(y) &lt; 0.4
 </div>
 </section></section>
 <section>
-<section id="workflow-pitfalls" class="title-slide slide level1 center">
-<h1>Workflow pitfalls</h1>
+<section id="workflow-challenges" class="title-slide slide level1 center">
+<h1>Workflow challenges</h1>
 
+</section>
+<section id="implementing-the-joint-model" class="slide level2">
+<h2>Implementing the joint model</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>rstanarm<span class="sc">::</span><span class="fu">stan_jm</span>(</span>
+<span id="cb6-2"><a href=""></a>  <span class="at">formulaLong =</span> log_bilirubin <span class="sc">~</span></span>
+<span id="cb6-3"><a href=""></a>    study_arm <span class="sc">+</span> albumin <span class="sc">+</span> years_measured <span class="sc">+</span></span>
+<span id="cb6-4"><a href=""></a>    (<span class="dv">1</span> <span class="sc">|</span> patient_id),</span>
+<span id="cb6-5"><a href=""></a>  <span class="at">formulaEvent =</span> <span class="fu">Surv</span>(years_survived, event) <span class="sc">~</span></span>
+<span id="cb6-6"><a href=""></a>    study_arm,</span>
+<span id="cb6-7"><a href=""></a>  <span class="at">time_var =</span> <span class="st">"years_measured"</span>,</span>
+<span id="cb6-8"><a href=""></a>  <span class="at">dataLong =</span> data_longitudinal,</span>
+<span id="cb6-9"><a href=""></a>  <span class="at">dataEvent =</span> data_survival</span>
+<span id="cb6-10"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="backend-stan" class="slide level2">
+<h2>Backend: Stan</h2>
+<p><br></p>
+
+<img data-src="./images/stan.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="computational-demands-of-stanhmc" class="slide level2">
+<h2>Computational demands of Stan/HMC</h2>
+
+<img data-src="./images/hmc.png" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment">
+<p>HMC = Hamiltonian Monte Carlo.</p>
+</div>
+<div class="fragment">
+<p>Physics simulation samples from the posterior distribution.</p>
+</div>
+</section>
+<section id="computation-time" class="slide level2">
+<h2>Computation time</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="fu">system.time</span>(<span class="fu">draw_hazard_ratios</span>())</span>
+<span id="cb7-2"><a href=""></a><span class="co">#&gt;    user  system elapsed </span></span>
+<span id="cb7-3"><a href=""></a><span class="co">#&gt; 658.306   2.424 177.468 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="fu">system.time</span>(<span class="fu">trial</span>(<span class="dv">1</span>, <span class="at">events =</span> <span class="dv">70</span>))</span>
+<span id="cb8-2"><a href=""></a><span class="co">#&gt;    user  system elapsed </span></span>
+<span id="cb8-3"><a href=""></a><span class="co">#&gt; 115.568   0.726  32.261 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="fragment">
+<p><br></p>
+<p><span style="font-weight: bold; color: brown; font-size:1.25em"> 32 seconds x 10000 reps x 4 scenarios <span class="math inline">\(&gt;\)</span> 2 weeks! </span></p>
+</div>
 </section>
 <section id="numbered-notebooks" class="slide level2">
 <h2>Numbered notebooks?</h2>
@@ -612,13 +665,13 @@ g(y) &lt; 0.4
 <h2>Project-oriented workflow</h2>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>()</span>
-<span id="cb6-2"><a href=""></a><span class="co">#&gt; _targets.R</span></span>
-<span id="cb6-3"><a href=""></a><span class="co">#&gt; R</span></span>
-<span id="cb6-4"><a href=""></a><span class="co">#&gt; ├── draw_hazard_ratios.R</span></span>
-<span id="cb6-5"><a href=""></a><span class="co">#&gt; ├── plot_results.R</span></span>
-<span id="cb6-6"><a href=""></a><span class="co">#&gt; ├── trial.R</span></span>
-<span id="cb6-7"><a href=""></a><span class="co">#&gt; └── utils.R</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>()</span>
+<span id="cb9-2"><a href=""></a><span class="co">#&gt; _targets.R</span></span>
+<span id="cb9-3"><a href=""></a><span class="co">#&gt; R</span></span>
+<span id="cb9-4"><a href=""></a><span class="co">#&gt; ├── draw_hazard_ratios.R</span></span>
+<span id="cb9-5"><a href=""></a><span class="co">#&gt; ├── plot_results.R</span></span>
+<span id="cb9-6"><a href=""></a><span class="co">#&gt; ├── trial.R</span></span>
+<span id="cb9-7"><a href=""></a><span class="co">#&gt; └── utils.R</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <p><code>R/</code> scripts contain functions.</p>
@@ -630,76 +683,77 @@ g(y) &lt; 0.4
 <section id="define-the-pipeline-in-_targets.r" class="slide level2">
 <h2>Define the pipeline in _targets.R</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="fu">library</span>(targets)</span>
-<span id="cb7-2"><a href=""></a></span>
-<span id="cb7-3"><a href=""></a><span class="fu">tar_option_set</span>(...)</span>
-<span id="cb7-4"><a href=""></a></span>
-<span id="cb7-5"><a href=""></a><span class="fu">tar_source</span>()</span>
-<span id="cb7-6"><a href=""></a></span>
-<span id="cb7-7"><a href=""></a><span class="fu">list</span>(</span>
-<span id="cb7-8"><a href=""></a>  <span class="fu">tar_target</span>(hazard_ratios, ...),</span>
-<span id="cb7-9"><a href=""></a>  <span class="fu">tar_target</span>(trials, ...),</span>
-<span id="cb7-10"><a href=""></a>  ...</span>
-<span id="cb7-11"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="fu">library</span>(targets)</span>
+<span id="cb10-2"><a href=""></a></span>
+<span id="cb10-3"><a href=""></a><span class="fu">tar_option_set</span>(...)</span>
+<span id="cb10-4"><a href=""></a></span>
+<span id="cb10-5"><a href=""></a><span class="fu">tar_source</span>()</span>
+<span id="cb10-6"><a href=""></a></span>
+<span id="cb10-7"><a href=""></a><span class="fu">list</span>(</span>
+<span id="cb10-8"><a href=""></a>  <span class="fu">tar_target</span>(hazard_ratios, ...),</span>
+<span id="cb10-9"><a href=""></a>  <span class="fu">tar_target</span>(trials, ...),</span>
+<span id="cb10-10"><a href=""></a>  ...</span>
+<span id="cb10-11"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="options-and-parallel-computing" class="slide level2">
 <h2>Options and parallel computing</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="fu">library</span>(crew.cluster)</span>
-<span id="cb8-2"><a href=""></a></span>
-<span id="cb8-3"><a href=""></a>controller <span class="ot">&lt;-</span> <span class="fu">crew_controller_sge</span>(</span>
-<span id="cb8-4"><a href=""></a>  <span class="at">workers =</span> <span class="dv">500</span>,</span>
-<span id="cb8-5"><a href=""></a>  <span class="at">seconds_idle =</span> <span class="dv">120</span></span>
-<span id="cb8-6"><a href=""></a>)</span>
-<span id="cb8-7"><a href=""></a></span>
-<span id="cb8-8"><a href=""></a><span class="fu">tar_option_set</span>(</span>
-<span id="cb8-9"><a href=""></a>  <span class="at">packages =</span> <span class="fu">c</span>(<span class="st">"rstanarm"</span>, ...),</span>
-<span id="cb8-10"><a href=""></a>  <span class="at">controller =</span> controller</span>
-<span id="cb8-11"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a><span class="fu">library</span>(crew.cluster)</span>
+<span id="cb11-2"><a href=""></a></span>
+<span id="cb11-3"><a href=""></a>controller <span class="ot">&lt;-</span> <span class="fu">crew_controller_sge</span>(</span>
+<span id="cb11-4"><a href=""></a>  <span class="at">workers =</span> <span class="dv">500</span>,</span>
+<span id="cb11-5"><a href=""></a>  <span class="at">cores =</span> <span class="dv">4</span>,</span>
+<span id="cb11-6"><a href=""></a>  <span class="at">seconds_idle =</span> <span class="dv">120</span></span>
+<span id="cb11-7"><a href=""></a>)</span>
+<span id="cb11-8"><a href=""></a></span>
+<span id="cb11-9"><a href=""></a><span class="fu">tar_option_set</span>(</span>
+<span id="cb11-10"><a href=""></a>  <span class="at">packages =</span> <span class="fu">c</span>(<span class="st">"rstanarm"</span>, ...),</span>
+<span id="cb11-11"><a href=""></a>  <span class="at">controller =</span> controller</span>
+<span id="cb11-12"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="inputs" class="slide level2">
 <h2>Inputs</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="fu">tar_target</span>(</span>
-<span id="cb9-2"><a href=""></a>  <span class="at">name =</span> hazard_ratios,</span>
-<span id="cb9-3"><a href=""></a>  <span class="at">command =</span> <span class="fu">draw_hazard_ratios</span>(<span class="dv">10000</span>)</span>
-<span id="cb9-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a><span class="fu">tar_target</span>(</span>
+<span id="cb12-2"><a href=""></a>  <span class="at">name =</span> hazard_ratios,</span>
+<span id="cb12-3"><a href=""></a>  <span class="at">command =</span> <span class="fu">draw_hazard_ratios</span>(<span class="dv">10000</span>)</span>
+<span id="cb12-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="fu">tar_target</span>(</span>
-<span id="cb10-2"><a href=""></a>  <span class="at">name =</span> events,</span>
-<span id="cb10-3"><a href=""></a>  <span class="at">command =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">70</span>)</span>
-<span id="cb10-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a><span class="fu">tar_target</span>(</span>
+<span id="cb13-2"><a href=""></a>  <span class="at">name =</span> events,</span>
+<span id="cb13-3"><a href=""></a>  <span class="at">command =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">70</span>)</span>
+<span id="cb13-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="simulations" class="slide level2">
 <h2>Simulations</h2>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a><span class="fu">tar_target</span>(</span>
-<span id="cb11-2"><a href=""></a>  <span class="at">name =</span> trials,</span>
-<span id="cb11-3"><a href=""></a>  <span class="at">command =</span> <span class="fu">trial</span>(hazard_ratios, events),</span>
-<span id="cb11-4"><a href=""></a>  <span class="at">pattern =</span> <span class="fu">cross</span>(hazard_ratios, events)</span>
-<span id="cb11-5"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a><span class="fu">tar_target</span>(</span>
+<span id="cb14-2"><a href=""></a>  <span class="at">name =</span> trials,</span>
+<span id="cb14-3"><a href=""></a>  <span class="at">command =</span> <span class="fu">trial</span>(hazard_ratios, events),</span>
+<span id="cb14-4"><a href=""></a>  <span class="at">pattern =</span> <span class="fu">cross</span>(hazard_ratios, events)</span>
+<span id="cb14-5"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="results" class="slide level2">
 <h2>Results</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a><span class="fu">tar_target</span>(</span>
-<span id="cb12-2"><a href=""></a>  <span class="at">name =</span> plot,</span>
-<span id="cb12-3"><a href=""></a>  <span class="at">command =</span> <span class="fu">plot_results</span>(trials)</span>
-<span id="cb12-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="fu">tar_target</span>(</span>
+<span id="cb15-2"><a href=""></a>  <span class="at">name =</span> plot,</span>
+<span id="cb15-3"><a href=""></a>  <span class="at">command =</span> <span class="fu">plot_results</span>(trials)</span>
+<span id="cb15-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a>tarchetypes<span class="sc">::</span><span class="fu">tar_quarto</span>(</span>
-<span id="cb13-2"><a href=""></a>  <span class="at">name =</span> quarto,</span>
-<span id="cb13-3"><a href=""></a>  <span class="at">path =</span> <span class="st">"results.qmd"</span></span>
-<span id="cb13-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a>tarchetypes<span class="sc">::</span><span class="fu">tar_quarto</span>(</span>
+<span id="cb16-2"><a href=""></a>  <span class="at">name =</span> quarto,</span>
+<span id="cb16-3"><a href=""></a>  <span class="at">path =</span> <span class="st">"results.qmd"</span></span>
+<span id="cb16-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="quarto-report" class="slide level2">
@@ -711,7 +765,7 @@ g(y) &lt; 0.4
 <section id="graph-visualization" class="slide level2">
 <h2>Graph visualization</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a><span class="fu">tar_visnetwork</span>(<span class="at">targets_only =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a><span class="fu">tar_visnetwork</span>(<span class="at">targets_only =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
 <center>
@@ -724,10 +778,10 @@ g(y) &lt; 0.4
 <img src="./images/graph-dependencies.png">
 </center>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="fu">tar_target</span>(</span>
-<span id="cb15-2"><a href=""></a>  <span class="at">name =</span> plot,</span>
-<span id="cb15-3"><a href=""></a>  <span class="at">command =</span> <span class="fu">plot_results</span>(trials)</span>
-<span id="cb15-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a><span class="fu">tar_target</span>(</span>
+<span id="cb18-2"><a href=""></a>  <span class="at">name =</span> plot,</span>
+<span id="cb18-3"><a href=""></a>  <span class="at">command =</span> <span class="fu">plot_results</span>(trials)</span>
+<span id="cb18-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section>
 <section>
@@ -738,54 +792,92 @@ g(y) &lt; 0.4
 <section id="run-the-pipeline" class="slide level2">
 <h2>Run the pipeline</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a><span class="fu">tar_make</span>(<span class="at">as_job =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a><span class="fu">tar_make</span>(<span class="at">as_job =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <center>
 <img src="./images/workbench.png">
 </center>
 </section>
+<section id="auto-scaled-distributed-computing" class="slide level2">
+<h2>Auto-scaled distributed computing</h2>
+
+<img data-src="./images/Slide10.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="auto-scaled-distributed-computing-1" class="slide level2">
+<h2>Auto-scaled distributed computing</h2>
+
+<img data-src="./images/Slide11.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="auto-scaled-distributed-computing-2" class="slide level2">
+<h2>Auto-scaled distributed computing</h2>
+
+<img data-src="./images/Slide12.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="auto-scaled-distributed-computing-3" class="slide level2">
+<h2>Auto-scaled distributed computing</h2>
+
+<img data-src="./images/Slide13.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="auto-scaled-distributed-computing-4" class="slide level2">
+<h2>Auto-scaled distributed computing</h2>
+
+<img data-src="./images/Slide14.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="auto-scaled-distributed-computing-5" class="slide level2">
+<h2>Auto-scaled distributed computing</h2>
+
+<img data-src="./images/Slide15.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="track-progress" class="slide level2">
 <h2>Track progress</h2>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a><span class="fu">tar_progress_summary</span>()[, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span>
-<span id="cb17-2"><a href=""></a><span class="co">#&gt; # A tibble: 1 × 3</span></span>
-<span id="cb17-3"><a href=""></a><span class="co">#&gt;   skipped dispatched completed</span></span>
-<span id="cb17-4"><a href=""></a><span class="co">#&gt;     &lt;int&gt;      &lt;int&gt;     &lt;int&gt;</span></span>
-<span id="cb17-5"><a href=""></a><span class="co">#&gt; 1       0        500     12613</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a><span class="fu">tar_progress_summary</span>()[, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span>
+<span id="cb20-2"><a href=""></a><span class="co">#&gt; # A tibble: 1 × 3</span></span>
+<span id="cb20-3"><a href=""></a><span class="co">#&gt;   skipped dispatched completed</span></span>
+<span id="cb20-4"><a href=""></a><span class="co">#&gt;     &lt;int&gt;      &lt;int&gt;     &lt;int&gt;</span></span>
+<span id="cb20-5"><a href=""></a><span class="co">#&gt; 1       0        500     12613</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="track-progress-1" class="slide level2">
 <h2>Track progress</h2>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a><span class="fu">tar_visnetwork</span>(<span class="at">targets_only =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a><span class="fu">tar_visnetwork</span>(<span class="at">targets_only =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <center>
 <img src="./images/graph-dispatched.png">
 </center>
 </section>
+<section id="monitor-workers" class="slide level2">
+<h2>Monitor workers</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href=""></a><span class="fu">library</span>(crew.cluster)</span>
+<span id="cb22-2"><a href=""></a>monitor <span class="ot">&lt;-</span> <span class="fu">crew_monitor_sge</span>()</span>
+<span id="cb22-3"><a href=""></a></span>
+<span id="cb22-4"><a href=""></a>monitor<span class="sc">$</span><span class="fu">jobs</span>()[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">9</span>)]</span>
+<span id="cb22-5"><a href=""></a><span class="co">#&gt; # A tibble: 2 × 4</span></span>
+<span id="cb22-6"><a href=""></a><span class="co">#&gt;   job_number name   state slots</span></span>
+<span id="cb22-7"><a href=""></a><span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;</span></span>
+<span id="cb22-8"><a href=""></a><span class="co">#&gt; 1 131853812  crew-… r     4    </span></span>
+<span id="cb22-9"><a href=""></a><span class="co">#&gt; 2 131853813  crew-… r     4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
 <section id="simulation-results" class="slide level2">
 <h2>Simulation results</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a><span class="fu">tar_read</span>(trials, <span class="at">branches =</span> <span class="fu">seq_len</span>(<span class="dv">8</span>))</span>
-<span id="cb19-2"><a href=""></a><span class="co">#&gt; # A tibble: 10 × 4</span></span>
-<span id="cb19-3"><a href=""></a><span class="co">#&gt;    events efficacy enrolled years</span></span>
-<span id="cb19-4"><a href=""></a><span class="co">#&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb19-5"><a href=""></a><span class="co">#&gt;  1     40   0.055        58  6.31</span></span>
-<span id="cb19-6"><a href=""></a><span class="co">#&gt;  2     50   0.0685       77  7.99</span></span>
-<span id="cb19-7"><a href=""></a><span class="co">#&gt;  3     60   0.0602       81  7.93</span></span>
-<span id="cb19-8"><a href=""></a><span class="co">#&gt;  4     70   0.153        93  9.01</span></span>
-<span id="cb19-9"><a href=""></a><span class="co">#&gt;  5     40   0.220        65  6.03</span></span>
-<span id="cb19-10"><a href=""></a><span class="co">#&gt;  6     50   0.479        73  6.43</span></span>
-<span id="cb19-11"><a href=""></a><span class="co">#&gt;  7     60   0.918        87  8.91</span></span>
-<span id="cb19-12"><a href=""></a><span class="co">#&gt;  8     70   0.832        89  8.99</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a><span class="fu">tar_read</span>(trials, <span class="at">branches =</span> <span class="fu">seq_len</span>(<span class="dv">8</span>))</span>
+<span id="cb23-2"><a href=""></a><span class="co">#&gt; # A tibble: 10 × 4</span></span>
+<span id="cb23-3"><a href=""></a><span class="co">#&gt;    events efficacy enrolled years</span></span>
+<span id="cb23-4"><a href=""></a><span class="co">#&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb23-5"><a href=""></a><span class="co">#&gt;  1     40   0.055        58  6.31</span></span>
+<span id="cb23-6"><a href=""></a><span class="co">#&gt;  2     50   0.0685       77  7.99</span></span>
+<span id="cb23-7"><a href=""></a><span class="co">#&gt;  3     60   0.0602       81  7.93</span></span>
+<span id="cb23-8"><a href=""></a><span class="co">#&gt;  4     70   0.153        93  9.01</span></span>
+<span id="cb23-9"><a href=""></a><span class="co">#&gt;  5     40   0.220        65  6.03</span></span>
+<span id="cb23-10"><a href=""></a><span class="co">#&gt;  6     50   0.479        73  6.43</span></span>
+<span id="cb23-11"><a href=""></a><span class="co">#&gt;  7     60   0.918        87  8.91</span></span>
+<span id="cb23-12"><a href=""></a><span class="co">#&gt;  8     70   0.832        89  8.99</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="plot" class="slide level2">
 <h2>Plot</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a><span class="fu">tar_read</span>(plot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href=""></a><span class="fu">tar_read</span>(plot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <center>
 <img src="./images/plot.png">
@@ -807,10 +899,10 @@ g(y) &lt; 0.4
 <section id="add-a-new-target" class="slide level2">
 <h2>Add a new target</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a><span class="fu">tar_target</span>(</span>
-<span id="cb21-2"><a href=""></a>  <span class="at">name =</span> years,</span>
-<span id="cb21-3"><a href=""></a>  <span class="at">command =</span> <span class="fu">plot_years</span>(trials)</span>
-<span id="cb21-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a><span class="fu">tar_target</span>(</span>
+<span id="cb25-2"><a href=""></a>  <span class="at">name =</span> years,</span>
+<span id="cb25-3"><a href=""></a>  <span class="at">command =</span> <span class="fu">plot_years</span>(trials)</span>
+<span id="cb25-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <center>
 <img src="./images/graph-years.png">
@@ -820,16 +912,16 @@ g(y) &lt; 0.4
 <h2>Skip up-to-date targets</h2>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href=""></a><span class="fu">tar_make</span>()</span>
-<span id="cb22-2"><a href=""></a><span class="co">#&gt; ...</span></span>
-<span id="cb22-3"><a href=""></a><span class="co">#&gt; ✔ skipping targets (40002 so far)...</span></span>
-<span id="cb22-4"><a href=""></a><span class="co">#&gt; ▶ dispatched target years</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href=""></a><span class="fu">tar_make</span>()</span>
+<span id="cb26-2"><a href=""></a><span class="co">#&gt; ...</span></span>
+<span id="cb26-3"><a href=""></a><span class="co">#&gt; ✔ skipping targets (40002 so far)...</span></span>
+<span id="cb26-4"><a href=""></a><span class="co">#&gt; ▶ dispatched target years</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="years-until-interim" class="slide level2">
 <h2>Years until interim</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a><span class="fu">tar_read</span>(years)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a><span class="fu">tar_read</span>(years)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <center>
 <img src="./images/years.png">
@@ -838,10 +930,10 @@ g(y) &lt; 0.4
 <section id="change-an-event-threshold" class="slide level2">
 <h2>Change an event threshold</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href=""></a><span class="fu">tar_target</span>(</span>
-<span id="cb24-2"><a href=""></a>  <span class="at">name =</span> events,</span>
-<span id="cb24-3"><a href=""></a>  <span class="at">command =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">75</span>)</span>
-<span id="cb24-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href=""></a><span class="fu">tar_target</span>(</span>
+<span id="cb28-2"><a href=""></a>  <span class="at">name =</span> events,</span>
+<span id="cb28-3"><a href=""></a>  <span class="at">command =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">75</span>)</span>
+<span id="cb28-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <center>
 <img src="./images/graph-change-event-threshold.png">
@@ -856,12 +948,12 @@ g(y) &lt; 0.4
 <section id="up-to-date-pipeline" class="slide level2">
 <h2>Up-to-date pipeline</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a><span class="fu">tar_outdated</span>()</span>
-<span id="cb25-2"><a href=""></a><span class="co">#&gt; character(0)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href=""></a><span class="fu">tar_outdated</span>()</span>
+<span id="cb29-2"><a href=""></a><span class="co">#&gt; character(0)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href=""></a><span class="fu">tar_visnetwork</span>(<span class="at">targets_only =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href=""></a><span class="fu">tar_visnetwork</span>(<span class="at">targets_only =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <center>
 <img src="./images/graph-uptodate.png">
@@ -878,167 +970,6 @@ g(y) &lt; 0.4
 <div class="fragment">
 <p>Need to simulate full design with interims and final analysis</p>
 </div>
-</section></section>
-<section>
-<section id="example-pipeline-bayesian-model-validation" class="title-slide slide level1 center">
-<h1>Example pipeline: Bayesian model validation</h1>
-
-</section>
-<section id="bayesian-mmrm" class="slide level2">
-<h2>Bayesian MMRM</h2>
-
-<img data-src="./images/fev.png" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment">
-<p>MMRM = mixed model for repeated measures.</p>
-</div>
-<div class="fragment">
-<p>Longitudinal data with continuous outcomes.</p>
-</div>
-<div class="fragment">
-<p>Bayesian MMRMs: phase 2 neurology, pulmonology, etc.</p>
-</div>
-</section>
-<section id="implementation" class="slide level2">
-<h2>Implementation</h2>
-
-<img data-src="./images/brms.mmrm.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="computational-demands-of-stanhmc" class="slide level2">
-<h2>Computational demands of Stan/HMC</h2>
-
-<img data-src="./images/hmc.png" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment">
-<p>HMC = Hamiltonian Monte Carlo.</p>
-</div>
-<div class="fragment">
-<p>Physics simulation samples from the posterior distribution.</p>
-</div>
-</section>
-<section id="modeling-scenarios" class="slide level2">
-<h2>Modeling scenarios</h2>
-<p><span class="math display">\[
-\begin{aligned}
-\mathbf{y}_1, \ldots, \mathbf{y}_n \stackrel{\text{ind}}{\sim} \text{MVN}(X_n\mathbf{\beta}, {\color{blue} \Sigma})
-\end{aligned}
-\]</span></p>
-<ol type="1">
-<li>Subgroup analysis with unstructured covariance <span class="math inline">\({\color{blue} \Sigma}\)</span>.</li>
-<li>Unstructured <span class="math inline">\({\color{blue} \Sigma}\)</span>.</li>
-<li>Autoregressive moving average <span class="math inline">\({\color{blue} \Sigma}\)</span>.</li>
-<li>Autoregressive <span class="math inline">\({\color{blue} \Sigma}\)</span>.</li>
-<li>Moving average <span class="math inline">\({\color{blue} \Sigma}\)</span>.</li>
-<li>Uncorrelated residuals.</li>
-</ol>
-</section>
-<section id="validation" class="slide level2" style="font-size: 90%">
-<h2>Validation</h2>
-
-<img data-src="./images/bayes.png" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment">
-<p>Simulation-based calibration (SBC) checking. (<a href="https://projecteuclid.org/journals/bayesian-analysis/volume--1/issue--1/Simulation-Based-Calibration-Checking-for-Bayesian-Computation--The-Choice/10.1214/23-BA1404.full">Modrák et al.&nbsp;(2023)</a>)</p>
-</div>
-<div class="fragment">
-<p><br></p>
-<p>Problem: easy to simulate from prior, hard to model posterior.</p>
-</div>
-<div class="fragment">
-<p><br></p>
-<p>Solution: simulation where prior and posterior should agree.</p>
-</div>
-</section>
-<section id="repeat-thousands-of-times" class="slide level2" style="font-size: 85%">
-<h2>Repeat thousands of times:</h2>
-<ol type="1">
-<li class="fragment">Draw a set of parameters from the prior.</li>
-</ol>
-<div class="fragment">
-<p><span class="math display">\[
-\begin{aligned}
-\theta^{\text{sim}} &amp;\sim p(\theta)
-\end{aligned}
-\]</span></p>
-</div>
-<ol start="2" type="1">
-<li class="fragment">Draw a dataset given the parameters.</li>
-</ol>
-<div class="fragment">
-<p><span class="math display">\[
-\begin{aligned}
-y^{\text{sim}} &amp;\sim p(y | \theta^{\text{sim}})
-\end{aligned}
-\]</span></p>
-</div>
-<ol start="3" type="1">
-<li class="fragment">Draw parameter samples from the posterior.</li>
-</ol>
-<div class="fragment">
-<p><span class="math display">\[
-\begin{aligned}
-\theta^{(1)}, \ldots, \theta^{(M)} &amp;\sim p(\theta | y^{\text{sim}})
-\end{aligned}
-\]</span></p>
-</div>
-</section>
-<section id="why-this-simulation-validates-the-model" class="slide level2" style="font-size: 80%">
-<h2>Why this simulation validates the model</h2>
-<p><br></p>
-<p>SBC is equivalent to integrating out <span class="math inline">\(\theta^{\text{sim}}\)</span> and <span class="math inline">\(y^{\text{sim}}\)</span> to recover the prior:</p>
-<div class="fragment">
-<p><span class="math display">\[
-p(\theta | \theta^{\text{sim}}) = \int \color{blue}{p(\theta | y^{\text{sim}})} p(y^{\text{sim}} | \theta^{\text{sim}})  d y^{\text{sim}}
-\]</span></p>
-</div>
-<div class="fragment">
-<p><span class="math display">\[
-p(\theta) = \int p(\theta | \theta^{\text{sim}}) d \theta^{\text{sim}}
-\]</span></p>
-<p><br></p>
-</div>
-<div class="fragment">
-<p>Use ranks <span class="math inline">\(\sum_{m = 1}^M I \left [ \theta^{(m)}_i &lt; \theta^{\text{sim}}_i
-\right ]\)</span> to check that the posterior and prior agree.</p>
-</div>
-<div class="fragment">
-<p><br></p>
-<p>Ranks should be uniformly distributed.</p>
-</div>
-</section>
-<section id="branching-with-tarchetypes" class="slide level2">
-<h2>Branching with tarchetypes</h2>
-<div style="font-size: 0.9em;">
-<div class="sourceCode" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a><span class="fu">tar_map</span>( <span class="co"># Static branching over scenarios</span></span>
-<span id="cb27-2"><a href=""></a>  <span class="at">values =</span> scenarios,</span>
-<span id="cb27-3"><a href=""></a>  </span>
-<span id="cb27-4"><a href=""></a>  <span class="fu">tar_target</span>(</span>
-<span id="cb27-5"><a href=""></a>    <span class="at">name =</span> prior,</span>
-<span id="cb27-6"><a href=""></a>    <span class="at">command =</span> <span class="fu">setup_prior</span>(scenario)</span>
-<span id="cb27-7"><a href=""></a>  ),</span>
-<span id="cb27-8"><a href=""></a>  </span>
-<span id="cb27-9"><a href=""></a>  <span class="fu">tar_rep</span>( <span class="co"># Dynamic branching for simulations</span></span>
-<span id="cb27-10"><a href=""></a>    <span class="at">name =</span> ranks,</span>
-<span id="cb27-11"><a href=""></a>    <span class="at">command =</span> <span class="fu">run_simulation</span>(scenario, prior),</span>
-<span id="cb27-12"><a href=""></a>    <span class="at">batches =</span> <span class="dv">1000</span>,</span>
-<span id="cb27-13"><a href=""></a>    <span class="at">reps =</span> <span class="dv">1</span></span>
-<span id="cb27-14"><a href=""></a>  )</span>
-<span id="cb27-15"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="auto-scaled-distributed-computing" class="slide level2">
-<h2>Auto-scaled distributed computing</h2>
-
-<img data-src="./images/parallel1.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="auto-scaled-distributed-computing-1" class="slide level2">
-<h2>Auto-scaled distributed computing</h2>
-
-<img data-src="./images/parallel2.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="auto-scaled-distributed-computing-2" class="slide level2">
-<h2>Auto-scaled distributed computing</h2>
-
-<img data-src="./images/parallel3.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="auto-scaled-distributed-computing-3" class="slide level2">
-<h2>Auto-scaled distributed computing</h2>
-
-<img data-src="./images/parallel4.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="validation-results" class="slide level2">
-<h2>Validation results</h2>
-
-<img data-src="./images/ranks.png" class="quarto-figure quarto-figure-center r-stretch"><p>SBC ranks are roughly uniform, as expected.</p>
 </section></section>
 <section>
 <section id="recap" class="title-slide slide level1 center">
