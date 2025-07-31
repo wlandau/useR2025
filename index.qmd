@@ -57,7 +57,7 @@ pre code {
 ::: {.notes}
 Today I'd like to talk about pipelines with `targets`.
 And not just `targets` itself and how to use it, although I will cover that.
-I'm want to focus on a type of project that comes up a lot in my work.
+I'm want to take you though a type of project that comes up a lot in my work.
 It's an endeavor where my colleagues and I have struggled with a traditional approach to workflows.
 But now with pipelines, we're sailing.
 So more than the "what" and the "how" of pipelines, I want to take you *why* we use them.
