@@ -54,6 +54,15 @@ pre code {
 <h4>Will Landau</h4>
 </center>
 
+::: {.notes}
+Today I'd like to talk about pipelines with `targets`.
+And not just `targets` itself and how to use it, although I will cover that.
+I'm want to focus on a type of project that comes up a lot in my work.
+It's an endeavor where my colleagues and I have struggled with a traditional approach to workflows.
+But now with pipelines, we're sailing.
+:::
+
+
 ## Overview {style="font-size: 1.1em"}
 
 <br>
@@ -77,6 +86,11 @@ Traditional workflows in R struggle to scale.
 <br>
 
 Pipelines give you time, confidence, and peace of mind.
+
+:::{.notes}
+So, a bit of background.
+I'm a Bayesian statistician by training.
+:::
 
 # Clinical trial simulation
 
