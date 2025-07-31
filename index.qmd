@@ -121,11 +121,12 @@ I'm a Bayesian statistician by training.
 
 . . .
 
-Quantify decision-making ability.
+Compare alternative designs.
 
 . . .
 
-Compare alternative designs.
+Quantify decision-making ability.
+
 
 ## Clinical trial simulation: steps
 
