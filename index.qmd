@@ -616,6 +616,28 @@ tar_option_set(
 
 ```{r}
 tar_target(
+  name = events,
+  command = c(40, 50, 60, 70)
+)
+```
+
+. . .
+
+<br>
+
+Equivalent to:
+
+```{r}
+function() {
+  result <- c(40, 50, 60, 70)
+  saveRDS(result, "_targets/objects/events")
+}
+```
+
+## Inputs
+
+```{r}
+tar_target(
   name = hazard_ratios,
   command = draw_hazard_ratios(10000)
 )
@@ -623,16 +645,18 @@ tar_target(
 
 <br>
 
+. . .
+
+Equivalent to:
+
 ```{r}
-tar_target(
-  name = events,
-  command = c(40, 50, 60, 70)
-)
+function(draw_hazard_ratios) {
+  result <- draw_hazard_ratios(10000)
+  saveRDS(result, "_targets/objects/hazard...")
+}
 ```
 
 ## Simulations
-
-<br>
 
 ```{r}
 tar_target(
@@ -640,6 +664,19 @@ tar_target(
   command = trial(hazard_ratios, events),
   pattern = cross(hazard_ratios, events)
 )
+```
+
+. . .
+
+<br>
+
+For each combination of hazard ratio and event threshold:
+
+```{r}
+function(trial, hazard_ratio, event) {
+  result <- trial(hazard_ratio, event)
+  saveRDS(result, "_targets/objects/trials...")
+}
 ```
 
 ## Results
@@ -653,11 +690,37 @@ tar_target(
 
 <br>
 
+. . .
+
+Equivalent to:
+
+```{r}
+function(plot_results, trials) {
+  result <- plot_results(trials)
+  saveRDS(result, "_targets/objects/events")
+}
+```
+
+## Results
+
 ```{r}
 tarchetypes::tar_quarto(
   name = quarto,
   path = "results.qmd"
 )
+```
+
+<br>
+
+. . .
+
+Equivalent to:
+
+```{r}
+function(path, plot) {
+  quarto::quarto_render(path)
+  c("results.html", path)
+}
 ```
 
 ## Quarto report

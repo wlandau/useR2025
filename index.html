@@ -224,7 +224,7 @@ Will Landau
 </h4>
 </center>
 <aside class="notes">
-<p>Today I’d like to talk about pipelines with <code>targets</code>. And not just <code>targets</code> itself and how to use it, although I will cover that. I’m want to focus on a type of project that comes up a lot in my work. It’s an endeavor where my colleagues and I have struggled with a traditional approach to workflows. But now with pipelines, we’re sailing.</p>
+<p>Today I’d like to talk about pipelines with <code>targets</code>. And I want to take you through a type of project that comes up a lot in my work. It’s an endeavor where my colleagues and I have struggled with a traditional approach to workflows. But now with pipelines, we’re sailing.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -743,43 +743,96 @@ g(y) &lt; 0.4
 <h2>Inputs</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a><span class="fu">tar_target</span>(</span>
-<span id="cb12-2"><a href=""></a>  <span class="at">name =</span> hazard_ratios,</span>
-<span id="cb12-3"><a href=""></a>  <span class="at">command =</span> <span class="fu">draw_hazard_ratios</span>(<span class="dv">10000</span>)</span>
+<span id="cb12-2"><a href=""></a>  <span class="at">name =</span> events,</span>
+<span id="cb12-3"><a href=""></a>  <span class="at">command =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">70</span>)</span>
 <span id="cb12-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="fragment">
 <p><br></p>
+<p>Equivalent to:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a><span class="fu">tar_target</span>(</span>
-<span id="cb13-2"><a href=""></a>  <span class="at">name =</span> events,</span>
-<span id="cb13-3"><a href=""></a>  <span class="at">command =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">70</span>)</span>
-<span id="cb13-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a><span class="cf">function</span>() {</span>
+<span id="cb13-2"><a href=""></a>  result <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">70</span>)</span>
+<span id="cb13-3"><a href=""></a>  <span class="fu">saveRDS</span>(result, <span class="st">"_targets/objects/events"</span>)</span>
+<span id="cb13-4"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="inputs-1" class="slide level2">
+<h2>Inputs</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a><span class="fu">tar_target</span>(</span>
+<span id="cb14-2"><a href=""></a>  <span class="at">name =</span> hazard_ratios,</span>
+<span id="cb14-3"><a href=""></a>  <span class="at">command =</span> <span class="fu">draw_hazard_ratios</span>(<span class="dv">10000</span>)</span>
+<span id="cb14-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+<div class="fragment">
+<p>Equivalent to:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="cf">function</span>(draw_hazard_ratios) {</span>
+<span id="cb15-2"><a href=""></a>  result <span class="ot">&lt;-</span> <span class="fu">draw_hazard_ratios</span>(<span class="dv">10000</span>)</span>
+<span id="cb15-3"><a href=""></a>  <span class="fu">saveRDS</span>(result, <span class="st">"_targets/objects/hazard..."</span>)</span>
+<span id="cb15-4"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 </section>
 <section id="simulations" class="slide level2">
 <h2>Simulations</h2>
-<p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a><span class="fu">tar_target</span>(</span>
-<span id="cb14-2"><a href=""></a>  <span class="at">name =</span> trials,</span>
-<span id="cb14-3"><a href=""></a>  <span class="at">command =</span> <span class="fu">trial</span>(hazard_ratios, events),</span>
-<span id="cb14-4"><a href=""></a>  <span class="at">pattern =</span> <span class="fu">cross</span>(hazard_ratios, events)</span>
-<span id="cb14-5"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a><span class="fu">tar_target</span>(</span>
+<span id="cb16-2"><a href=""></a>  <span class="at">name =</span> trials,</span>
+<span id="cb16-3"><a href=""></a>  <span class="at">command =</span> <span class="fu">trial</span>(hazard_ratios, events),</span>
+<span id="cb16-4"><a href=""></a>  <span class="at">pattern =</span> <span class="fu">cross</span>(hazard_ratios, events)</span>
+<span id="cb16-5"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><br></p>
+<p>For each combination of hazard ratio and event threshold:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a><span class="cf">function</span>(trial, hazard_ratio, event) {</span>
+<span id="cb17-2"><a href=""></a>  result <span class="ot">&lt;-</span> <span class="fu">trial</span>(hazard_ratio, event)</span>
+<span id="cb17-3"><a href=""></a>  <span class="fu">saveRDS</span>(result, <span class="st">"_targets/objects/trials..."</span>)</span>
+<span id="cb17-4"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 </section>
 <section id="results" class="slide level2">
 <h2>Results</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="fu">tar_target</span>(</span>
-<span id="cb15-2"><a href=""></a>  <span class="at">name =</span> plot,</span>
-<span id="cb15-3"><a href=""></a>  <span class="at">command =</span> <span class="fu">plot_results</span>(trials)</span>
-<span id="cb15-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a><span class="fu">tar_target</span>(</span>
+<span id="cb18-2"><a href=""></a>  <span class="at">name =</span> plot,</span>
+<span id="cb18-3"><a href=""></a>  <span class="at">command =</span> <span class="fu">plot_results</span>(trials)</span>
+<span id="cb18-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
+<div class="fragment">
+<p>Equivalent to:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a>tarchetypes<span class="sc">::</span><span class="fu">tar_quarto</span>(</span>
-<span id="cb16-2"><a href=""></a>  <span class="at">name =</span> quarto,</span>
-<span id="cb16-3"><a href=""></a>  <span class="at">path =</span> <span class="st">"results.qmd"</span></span>
-<span id="cb16-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a><span class="cf">function</span>(plot_results, trials) {</span>
+<span id="cb19-2"><a href=""></a>  result <span class="ot">&lt;-</span> <span class="fu">plot_results</span>(trials)</span>
+<span id="cb19-3"><a href=""></a>  <span class="fu">saveRDS</span>(result, <span class="st">"_targets/objects/events"</span>)</span>
+<span id="cb19-4"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="results-1" class="slide level2">
+<h2>Results</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a>tarchetypes<span class="sc">::</span><span class="fu">tar_quarto</span>(</span>
+<span id="cb20-2"><a href=""></a>  <span class="at">name =</span> quarto,</span>
+<span id="cb20-3"><a href=""></a>  <span class="at">path =</span> <span class="st">"results.qmd"</span></span>
+<span id="cb20-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+<div class="fragment">
+<p>Equivalent to:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a><span class="cf">function</span>(path, plot) {</span>
+<span id="cb21-2"><a href=""></a>  quarto<span class="sc">::</span><span class="fu">quarto_render</span>(path)</span>
+<span id="cb21-3"><a href=""></a>  <span class="fu">c</span>(<span class="st">"results.html"</span>, path)</span>
+<span id="cb21-4"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 </section>
 <section id="quarto-report" class="slide level2">
@@ -791,7 +844,7 @@ g(y) &lt; 0.4
 <section id="graph-visualization" class="slide level2">
 <h2>Graph visualization</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a><span class="fu">tar_visnetwork</span>(<span class="at">targets_only =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href=""></a><span class="fu">tar_visnetwork</span>(<span class="at">targets_only =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
 <center>
@@ -804,10 +857,10 @@ g(y) &lt; 0.4
 <img src="./images/graph-dependencies.png">
 </center>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a><span class="fu">tar_target</span>(</span>
-<span id="cb18-2"><a href=""></a>  <span class="at">name =</span> plot,</span>
-<span id="cb18-3"><a href=""></a>  <span class="at">command =</span> <span class="fu">plot_results</span>(trials)</span>
-<span id="cb18-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a><span class="fu">tar_target</span>(</span>
+<span id="cb23-2"><a href=""></a>  <span class="at">name =</span> plot,</span>
+<span id="cb23-3"><a href=""></a>  <span class="at">command =</span> <span class="fu">plot_results</span>(trials)</span>
+<span id="cb23-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section>
 <section>
@@ -818,7 +871,7 @@ g(y) &lt; 0.4
 <section id="run-the-pipeline" class="slide level2">
 <h2>Run the pipeline</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a><span class="fu">tar_make</span>(<span class="at">as_job =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href=""></a><span class="fu">tar_make</span>(<span class="at">as_job =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <center>
 <img src="./images/workbench.png">
@@ -852,18 +905,18 @@ g(y) &lt; 0.4
 <h2>Track progress</h2>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a><span class="fu">tar_progress_summary</span>()[, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span>
-<span id="cb20-2"><a href=""></a><span class="co">#&gt; # A tibble: 1 × 3</span></span>
-<span id="cb20-3"><a href=""></a><span class="co">#&gt;   skipped dispatched completed</span></span>
-<span id="cb20-4"><a href=""></a><span class="co">#&gt;     &lt;int&gt;      &lt;int&gt;     &lt;int&gt;</span></span>
-<span id="cb20-5"><a href=""></a><span class="co">#&gt; 1       0        500     12613</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a><span class="fu">tar_progress_summary</span>()[, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span>
+<span id="cb25-2"><a href=""></a><span class="co">#&gt; # A tibble: 1 × 3</span></span>
+<span id="cb25-3"><a href=""></a><span class="co">#&gt;   skipped dispatched completed</span></span>
+<span id="cb25-4"><a href=""></a><span class="co">#&gt;     &lt;int&gt;      &lt;int&gt;     &lt;int&gt;</span></span>
+<span id="cb25-5"><a href=""></a><span class="co">#&gt; 1       0        500     12613</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="track-progress-1" class="slide level2">
 <h2>Track progress</h2>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a><span class="fu">tar_visnetwork</span>(<span class="at">targets_only =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href=""></a><span class="fu">tar_visnetwork</span>(<span class="at">targets_only =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <center>
 <img src="./images/graph-dispatched.png">
@@ -872,38 +925,38 @@ g(y) &lt; 0.4
 <section id="monitor-workers" class="slide level2">
 <h2>Monitor workers</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href=""></a><span class="fu">library</span>(crew.cluster)</span>
-<span id="cb22-2"><a href=""></a>monitor <span class="ot">&lt;-</span> <span class="fu">crew_monitor_sge</span>()</span>
-<span id="cb22-3"><a href=""></a></span>
-<span id="cb22-4"><a href=""></a>monitor<span class="sc">$</span><span class="fu">jobs</span>()[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">9</span>)]</span>
-<span id="cb22-5"><a href=""></a><span class="co">#&gt; # A tibble: 2 × 4</span></span>
-<span id="cb22-6"><a href=""></a><span class="co">#&gt;   job_number name   state slots</span></span>
-<span id="cb22-7"><a href=""></a><span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;</span></span>
-<span id="cb22-8"><a href=""></a><span class="co">#&gt; 1 131853812  crew-… r     4    </span></span>
-<span id="cb22-9"><a href=""></a><span class="co">#&gt; 2 131853813  crew-… r     4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a><span class="fu">library</span>(crew.cluster)</span>
+<span id="cb27-2"><a href=""></a>monitor <span class="ot">&lt;-</span> <span class="fu">crew_monitor_sge</span>()</span>
+<span id="cb27-3"><a href=""></a></span>
+<span id="cb27-4"><a href=""></a>monitor<span class="sc">$</span><span class="fu">jobs</span>()[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">9</span>)]</span>
+<span id="cb27-5"><a href=""></a><span class="co">#&gt; # A tibble: 2 × 4</span></span>
+<span id="cb27-6"><a href=""></a><span class="co">#&gt;   job_number name   state slots</span></span>
+<span id="cb27-7"><a href=""></a><span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;</span></span>
+<span id="cb27-8"><a href=""></a><span class="co">#&gt; 1 131853812  crew-… r     4    </span></span>
+<span id="cb27-9"><a href=""></a><span class="co">#&gt; 2 131853813  crew-… r     4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="simulation-results" class="slide level2">
 <h2>Simulation results</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a><span class="fu">tar_read</span>(trials, <span class="at">branches =</span> <span class="fu">seq_len</span>(<span class="dv">8</span>))</span>
-<span id="cb23-2"><a href=""></a><span class="co">#&gt; # A tibble: 10 × 4</span></span>
-<span id="cb23-3"><a href=""></a><span class="co">#&gt;    events efficacy enrolled years</span></span>
-<span id="cb23-4"><a href=""></a><span class="co">#&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb23-5"><a href=""></a><span class="co">#&gt;  1     40   0.055        58  6.31</span></span>
-<span id="cb23-6"><a href=""></a><span class="co">#&gt;  2     50   0.0685       77  7.99</span></span>
-<span id="cb23-7"><a href=""></a><span class="co">#&gt;  3     60   0.0602       81  7.93</span></span>
-<span id="cb23-8"><a href=""></a><span class="co">#&gt;  4     70   0.153        93  9.01</span></span>
-<span id="cb23-9"><a href=""></a><span class="co">#&gt;  5     40   0.220        65  6.03</span></span>
-<span id="cb23-10"><a href=""></a><span class="co">#&gt;  6     50   0.479        73  6.43</span></span>
-<span id="cb23-11"><a href=""></a><span class="co">#&gt;  7     60   0.918        87  8.91</span></span>
-<span id="cb23-12"><a href=""></a><span class="co">#&gt;  8     70   0.832        89  8.99</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href=""></a><span class="fu">tar_read</span>(trials, <span class="at">branches =</span> <span class="fu">seq_len</span>(<span class="dv">8</span>))</span>
+<span id="cb28-2"><a href=""></a><span class="co">#&gt; # A tibble: 10 × 4</span></span>
+<span id="cb28-3"><a href=""></a><span class="co">#&gt;    events efficacy enrolled years</span></span>
+<span id="cb28-4"><a href=""></a><span class="co">#&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb28-5"><a href=""></a><span class="co">#&gt;  1     40   0.055        58  6.31</span></span>
+<span id="cb28-6"><a href=""></a><span class="co">#&gt;  2     50   0.0685       77  7.99</span></span>
+<span id="cb28-7"><a href=""></a><span class="co">#&gt;  3     60   0.0602       81  7.93</span></span>
+<span id="cb28-8"><a href=""></a><span class="co">#&gt;  4     70   0.153        93  9.01</span></span>
+<span id="cb28-9"><a href=""></a><span class="co">#&gt;  5     40   0.220        65  6.03</span></span>
+<span id="cb28-10"><a href=""></a><span class="co">#&gt;  6     50   0.479        73  6.43</span></span>
+<span id="cb28-11"><a href=""></a><span class="co">#&gt;  7     60   0.918        87  8.91</span></span>
+<span id="cb28-12"><a href=""></a><span class="co">#&gt;  8     70   0.832        89  8.99</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="plot" class="slide level2">
 <h2>Plot</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href=""></a><span class="fu">tar_read</span>(plot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href=""></a><span class="fu">tar_read</span>(plot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <center>
 <img src="./images/plot.png">
@@ -925,10 +978,10 @@ g(y) &lt; 0.4
 <section id="add-a-new-target" class="slide level2">
 <h2>Add a new target</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a><span class="fu">tar_target</span>(</span>
-<span id="cb25-2"><a href=""></a>  <span class="at">name =</span> years,</span>
-<span id="cb25-3"><a href=""></a>  <span class="at">command =</span> <span class="fu">plot_years</span>(trials)</span>
-<span id="cb25-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href=""></a><span class="fu">tar_target</span>(</span>
+<span id="cb30-2"><a href=""></a>  <span class="at">name =</span> years,</span>
+<span id="cb30-3"><a href=""></a>  <span class="at">command =</span> <span class="fu">plot_years</span>(trials)</span>
+<span id="cb30-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <center>
 <img src="./images/graph-years.png">
@@ -938,16 +991,16 @@ g(y) &lt; 0.4
 <h2>Skip up-to-date targets</h2>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href=""></a><span class="fu">tar_make</span>()</span>
-<span id="cb26-2"><a href=""></a><span class="co">#&gt; ...</span></span>
-<span id="cb26-3"><a href=""></a><span class="co">#&gt; ✔ skipping targets (40002 so far)...</span></span>
-<span id="cb26-4"><a href=""></a><span class="co">#&gt; ▶ dispatched target years</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href=""></a><span class="fu">tar_make</span>()</span>
+<span id="cb31-2"><a href=""></a><span class="co">#&gt; ...</span></span>
+<span id="cb31-3"><a href=""></a><span class="co">#&gt; ✔ skipping targets (40002 so far)...</span></span>
+<span id="cb31-4"><a href=""></a><span class="co">#&gt; ▶ dispatched target years</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="years-until-interim" class="slide level2">
 <h2>Years until interim</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a><span class="fu">tar_read</span>(years)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href=""></a><span class="fu">tar_read</span>(years)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <center>
 <img src="./images/years.png">
@@ -956,10 +1009,10 @@ g(y) &lt; 0.4
 <section id="change-an-event-threshold" class="slide level2">
 <h2>Change an event threshold</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href=""></a><span class="fu">tar_target</span>(</span>
-<span id="cb28-2"><a href=""></a>  <span class="at">name =</span> events,</span>
-<span id="cb28-3"><a href=""></a>  <span class="at">command =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">75</span>)</span>
-<span id="cb28-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href=""></a><span class="fu">tar_target</span>(</span>
+<span id="cb33-2"><a href=""></a>  <span class="at">name =</span> events,</span>
+<span id="cb33-3"><a href=""></a>  <span class="at">command =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">75</span>)</span>
+<span id="cb33-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <center>
 <img src="./images/graph-change-event-threshold.png">
@@ -974,12 +1027,12 @@ g(y) &lt; 0.4
 <section id="up-to-date-pipeline" class="slide level2">
 <h2>Up-to-date pipeline</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href=""></a><span class="fu">tar_outdated</span>()</span>
-<span id="cb29-2"><a href=""></a><span class="co">#&gt; character(0)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href=""></a><span class="fu">tar_outdated</span>()</span>
+<span id="cb34-2"><a href=""></a><span class="co">#&gt; character(0)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href=""></a><span class="fu">tar_visnetwork</span>(<span class="at">targets_only =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href=""></a><span class="fu">tar_visnetwork</span>(<span class="at">targets_only =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <center>
 <img src="./images/graph-uptodate.png">
