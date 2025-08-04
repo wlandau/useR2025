@@ -56,7 +56,7 @@ pre code {
 
 ::: {.notes}
 One of the things we've seen at this conference is that we're using R more and more for industrial biomedical research.
-I want to share with you, not only a tool but a whole paradigm, that's helped me and my colleagues for many years.
+I want to share with you, not only a tool but a whole paradigm, that's really helped me and my colleagues for many years in this space.
 :::
 
 
@@ -91,6 +91,14 @@ I worked on genomics problems in grad school, and I've been in clinical trial st
 
 We spend a lot of time developing models and running simulations.
 There's a high standard of rigor and quality, and a heavy computational burden.
+
+One of the things we've noticed, is that our use of R is a bit "off-label".
+R is known for its informal expressiveness, data crunching, interactivity, and graphics.
+But now we're looking for reproducibility, and automation, and scale, for simulations that run for days and days.
+And as a community we've been trying to figure out the workflow part ourselves.
+
+But pipelines in general have been around for a much longer time.
+And they're really fitting for this sort of work.
 :::
 
 # Clinical trial simulation
