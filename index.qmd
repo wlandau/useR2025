@@ -130,11 +130,13 @@ And they're really fitting for this sort of work.
 
 . . .
 
-Compare alternative designs.
+Quantify decision-making ability.
 
 . . .
 
-Quantify decision-making ability.
+Compare alternative designs.
+
+
 
 
 ## Clinical trial simulation: steps
@@ -175,7 +177,7 @@ Frequent changes.
 
 . . .
 
-Extremely rare autoimmune liver disease.
+Extremely rare and severe autoimmune liver disease.
 
 . . .
 
