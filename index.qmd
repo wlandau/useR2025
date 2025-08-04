@@ -1004,22 +1004,25 @@ Need to simulate full design with interims and final analysis
 
 ::::
 
-
-## Links to resources
-
-::: {.nonincremental}
-
-* [`targets`](https://docs.ropensci.org/targets)
-* [Clinical trial simulation pipeline](https://github.com/wlandau/targets-example-liver)
-* [Bayesian MMRM SBC pipeline](https://github.com/openpharma/brms.mmrm/tree/main/vignettes/sbc)
-
-:::
-
 ## Slides: [wlandau.github.io/useR2025](https://wlandau.github.io/useR2025)
 
 <center>
 {{< qrcode https://wlandau.github.io/useR2025 width=500 height=500 >}}
 </center>
+
+## Links to resources
+
+::: {.nonincremental}
+
+<br>
+
+[`targets` documentation](https://docs.ropensci.org/targets)
+
+<br>
+
+[Clinical trial simulation pipeline](https://github.com/wlandau/targets-example-liver)
+
+:::
 
 ## Sources {.tiny}
 
