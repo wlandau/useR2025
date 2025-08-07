@@ -74,7 +74,7 @@ You write a program, but then before you use it, you have to let it compile.
 And while it compiles, there's nothing for you to do.
 You just have to sit there and let the computer do its thing.
 
-And I know, not all of us are software engineers.
+And I know, not all of us are professional software engineers.
 We're statisticians, mathematicians, ecologists, economists, geneticists, quantitative scientists of all kinds.
 But still... this is us... all the time.
 
@@ -380,7 +380,7 @@ trial(hazard_ratio = 0.5, events = 50)
 <br>
 
 ```{r}
-trial(hazard_ratio = 1.2, events = 50)
+trial(hazard_ratio = 1, events = 50)
 #> # A tibble: 1 × 4
 #>   events efficacy enrolled years
 #>    <dbl>    <dbl>    <dbl> <dbl>
