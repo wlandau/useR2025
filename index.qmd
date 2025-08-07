@@ -68,8 +68,8 @@ I want to share with you, not only a tool but a whole paradigm, that's really he
 <span style="font-size: 0.5em">Credit: <a href="https://xkcd.com/303/">https://xkcd.com/303/</a>, Randal Munroe</span>
 
 :::{.notes}
-But first, this is one of my favorite webcomics.
-And I like it because it reveals an unspoken reality in software engineering.
+But first, let's revisit one of our favorite webcomics.
+This comic is famous and forever memorialized in internet history because reveals an unspoken reality in software engineering.
 You write a program, but then before you use it, you have to let it compile.
 And while it compiles, there's nothing for you to do.
 You just have to sit there and let the computer do its thing.
