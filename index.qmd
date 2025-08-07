@@ -72,7 +72,7 @@ But first, this is one of my favorite webcomics.
 And I like it because it reveals an unspoken reality in software engineering.
 You write a program, but then before you use it, you have to let it compile.
 And while it compiles, there's nothing for you to do.
-You just have to sit there.
+You just have to sit there and let the computer do its thing.
 
 And I know, not all of us are software engineers.
 We're statisticians, mathematicians, ecologists, economists, geneticists, etc.
