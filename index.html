@@ -224,7 +224,7 @@ Will Landau
 </h4>
 </center>
 <aside class="notes">
-<p>One of the things we’ve seen at this conference is that we’re using R more and more for industrial biomedical research. I want to share with you, not only a tool but a whole paradigm, that’s really helped me and my colleagues for many years in this space.</p>
+<p>One of the things we’ve seen at this conference is that we’re using R more and more in the life sciences. For industrial biomedical research. I want to share with you, not only a tool but a whole paradigm, that’s really helped me and my colleagues for many years in this space.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -237,26 +237,13 @@ Will Landau
           display:block!important;
       }</style></aside>
 </section>
-<section id="overview" class="slide level2" style="font-size: 1.1em">
-<h2>Overview</h2>
-<p><br></p>
-<p>Background: Bayesian Statistics in the life sciences</p>
-<div class="fragment">
-<p><br></p>
-<p>Challenge: modeling and simulation</p>
-</div>
-<div class="fragment">
-<p><br></p>
-<p>Traditional workflows in R struggle to scale.</p>
-</div>
-<div class="fragment">
-<p><br></p>
-<p>Pipelines give you time, confidence, and peace of mind.</p>
+<section id="modeling-and-simulation" class="slide level2" style="font-size: 1.1em">
+<h2>Modeling and simulation</h2>
+
+<img data-src="./images/compiling.png" class="quarto-figure quarto-figure-center r-stretch"><p><span style="font-size: 0.5em">Credit: <a href="https://xkcd.com/303/">https://xkcd.com/303/</a>, Randal Munroe</span></p>
 <aside class="notes">
-<p>So, a bit of background. I’m a Bayesian statistician by training. I worked on genomics problems in grad school, and I’ve been in clinical trial statistics my whole career.</p>
-<p>We spend a lot of time developing models and running simulations. There’s a high standard of rigor and quality, and a heavy computational burden.</p>
-<p>One of the things we’ve noticed, is that our use of R is a bit “off-label”. R is known for its informal expressiveness, data crunching, interactivity, and graphics. But now we’re looking for reproducibility, and automation, and scale, for simulations that run for days and days. And as a community we’ve been trying to figure out the workflow part ourselves.</p>
-<p>But pipelines in general have been around for a much longer time. And they’re really fitting for this sort of work.</p>
+<p>But first, this is one of my favorite webcomics. And I like it because it reveals an unspoken reality in software engineering. You write a program, but then before you use it, you have to let it compile. And while it compiles, there’s nothing for you to do. You just have to sit there.</p>
+<p>And this… is us… all the time. But instead of “my code is compiling”, it’s usually: “my model is fitting”, or “my simulation is running”. And instead of slacking off and having sword fights in the office…</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -268,7 +255,24 @@ Will Landau
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-</div>
+</section>
+<section id="disruption-and-repetition" class="slide level2">
+<h2>Disruption and repetition</h2>
+
+<img data-src="./images/sisyphus.svg" class="quarto-figure quarto-figure-center r-stretch"><aside class="notes">
+<p>…we’re disrupted. And delayed. It’s painful. And just because a model or a simulation runs once, doesn’t mean it’s usable. We repeat ourselves until we get it right.</p>
+<p>Now I’m going to share with you when we most often find ourselves here. And what my colleagues and I do about it.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section>
 <section id="clinical-trial-simulation" class="title-slide slide level1 center">
@@ -1116,6 +1120,7 @@ g(y) &lt; 0.4
 <section id="image-credit" class="slide level2 tiny">
 <h2>Image credit</h2>
 <ul>
+<li><a href="https://xkcd.com/303/" class="uri">https://xkcd.com/303/</a></li>
 <li><a href="https://unsplash.com/photos/brown-and-gray-stones-on-white-surface-hUjSO5dZA_E" class="uri">https://unsplash.com/photos/brown-and-gray-stones-on-white-surface-hUjSO5dZA_E</a></li>
 <li><a href="https://unsplash.com/photos/person-stepping-on-blue-stairs-7_kRuX1hSXM" class="uri">https://unsplash.com/photos/person-stepping-on-blue-stairs-7_kRuX1hSXM</a></li>
 <li><a href="https://unsplash.com/photos/red-white-and-black-round-wheel-RjqCk9MqhNg" class="uri">https://unsplash.com/photos/red-white-and-black-round-wheel-RjqCk9MqhNg</a></li>
