@@ -1014,8 +1014,14 @@ g(y) &lt; 0.4
 <img src="./images/years.png">
 </center>
 </section>
-<section id="change-the-main-plot" class="slide level2">
-<h2>Change the main plot</h2>
+<section id="change-the-results-plot" class="slide level2">
+<h2>Change the results plot</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href=""></a><span class="fu">tar_target</span>(</span>
+<span id="cb33-2"><a href=""></a>  <span class="at">name =</span> plot,</span>
+<span id="cb33-3"><a href=""></a>  <span class="at">command =</span> <span class="fu">plot_results</span>(trials, <span class="at">height =</span> <span class="dv">7</span>)</span>
+<span id="cb33-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <center>
 <img src="./images/graph-change-plot.png">
 </center>
@@ -1023,10 +1029,10 @@ g(y) &lt; 0.4
 <section id="change-an-event-threshold" class="slide level2">
 <h2>Change an event threshold</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href=""></a><span class="fu">tar_target</span>(</span>
-<span id="cb33-2"><a href=""></a>  <span class="at">name =</span> events,</span>
-<span id="cb33-3"><a href=""></a>  <span class="at">command =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">75</span>)</span>
-<span id="cb33-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href=""></a><span class="fu">tar_target</span>(</span>
+<span id="cb34-2"><a href=""></a>  <span class="at">name =</span> events,</span>
+<span id="cb34-3"><a href=""></a>  <span class="at">command =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">75</span>)</span>
+<span id="cb34-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <center>
 <img src="./images/graph-change-event-threshold.png">
@@ -1041,12 +1047,12 @@ g(y) &lt; 0.4
 <section id="up-to-date-pipeline" class="slide level2">
 <h2>Up-to-date pipeline</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href=""></a><span class="fu">tar_outdated</span>()</span>
-<span id="cb34-2"><a href=""></a><span class="co">#&gt; character(0)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href=""></a><span class="fu">tar_outdated</span>()</span>
+<span id="cb35-2"><a href=""></a><span class="co">#&gt; character(0)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href=""></a><span class="fu">tar_visnetwork</span>(<span class="at">targets_only =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href=""></a><span class="fu">tar_visnetwork</span>(<span class="at">targets_only =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <center>
 <img src="./images/graph-uptodate.png">
