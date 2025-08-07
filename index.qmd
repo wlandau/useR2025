@@ -74,8 +74,11 @@ You write a program, but then before you use it, you have to let it compile.
 And while it compiles, there's nothing for you to do.
 You just have to sit there.
 
-And this... is us... all the time.
-But instead of "my code is compiling", it's usually: "my model is fitting", or "my simulation is running".
+And I know, not all of us are software engineers.
+We're statisticians, mathematicians, ecologists, economists, geneticists, etc.
+But this... this is us... all the time.
+
+Only instead of "my code is compiling", it's usually: "my model is fitting", or "my simulation is running".
 And instead of slacking off and having sword fights in the office...
 :::
 
