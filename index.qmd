@@ -69,7 +69,7 @@ I want to share with you, not only a tool but a whole paradigm, that's really he
 
 :::{.notes}
 But first, let's revisit one of our favorite webcomics.
-This comic is famous and forever memorialized in internet history because reveals an unspoken reality in software engineering.
+This comic is famous and forever memorialized in the history of the internet because reveals such a relatable unspoken reality in software engineering.
 You write a program, but then before you use it, you have to let it compile.
 And while it compiles, there's nothing for you to do.
 You just have to sit there and let the computer do its thing.
