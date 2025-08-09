@@ -60,6 +60,11 @@ For industrial biomedical research.
 I want to share with you, not only a tool but a whole paradigm, that's really helped me and my colleagues for many years in this space.
 :::
 
+## Questions: [app.wooclap.com/USER25](https://app.wooclap.com/USER25?from=event-page)
+
+<center>
+{{< qrcode https://app.wooclap.com/USER25?from=event-page width=500 height=500 >}}
+</center>
 
 ## Modeling and simulation {style="font-size: 1.1em"}
 
