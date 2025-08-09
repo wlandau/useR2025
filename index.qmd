@@ -1016,6 +1016,29 @@ Need to simulate full design with interims and final analysis
 
 ::::
 
+
+## Thanks!
+
+<br>
+
+:::: {.columns}
+
+:::{.column width="50%"}
+![](./images/useR.png){fig-align="center"}
+:::
+
+:::{.column width="50%"}
+![](./images/ropensci.svg){fig-align="center"}
+:::
+
+::::
+
+## Questions: [app.wooclap.com/USER25](https://app.wooclap.com/USER25?from=event-page)
+
+<center>
+{{< qrcode https://app.wooclap.com/USER25?from=event-page width=500 height=500 >}}
+</center>
+
 ## Slides: [wlandau.github.io/useR2025](https://wlandau.github.io/useR2025)
 
 <center>
