@@ -60,27 +60,6 @@ For industrial biomedical research.
 I want to share with you, not only a tool but a whole paradigm, that's really helped me and my colleagues for many years in this space.
 :::
 
-## Questions: [app.wooclap.com/USER25](https://app.wooclap.com/USER25?from=event-page)
-
-::::{.columns}
-
-:::{.column width="50%"}
-
-<center>
-{{< qrcode https://app.wooclap.com/USER25?from=event-page width=500 height=500 >}}
-</center>
-
-:::
-
-:::{.column width="50%"}
-
-Go to [https://wooclap.com](https://wooclap.com).
-Enter code USER2025.
-
-:::
-
-::::
-
 ## Modeling and simulation {style="font-size: 1.1em"}
 
 ![](./images/compiling.png){fig-align="center"}
@@ -1049,27 +1028,6 @@ Need to simulate full design with interims and final analysis
 
 :::{.column width="50%"}
 ![](./images/ropensci.svg){fig-align="center"}
-:::
-
-::::
-
-## Questions: [app.wooclap.com/USER25](https://app.wooclap.com/USER25?from=event-page)
-
-::::{.columns}
-
-:::{.column width="50%"}
-
-<center>
-{{< qrcode https://app.wooclap.com/USER25?from=event-page width=500 height=500 >}}
-</center>
-
-:::
-
-:::{.column width="50%"}
-
-Go to [https://wooclap.com](https://wooclap.com).
-Enter code USER2025.
-
 :::
 
 ::::
